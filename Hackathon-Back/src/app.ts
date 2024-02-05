@@ -1,5 +1,6 @@
 import express from 'express';
 import connection from './database/database';
+import connectDB from './database/database';
 
 
 const app = express();
@@ -12,3 +13,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Serveur Express en cours d'exécution sur le port ${port}`);
 });
+
+connectDB();

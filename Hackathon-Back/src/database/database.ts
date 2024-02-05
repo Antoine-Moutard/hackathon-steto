@@ -3,10 +3,10 @@ import mysql from 'mysql2/promise';
 const connectDB = async () => {
   try {
     const connection = await mysql.createConnection({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME
+      host: process.env.localhost,
+      user: process.env.root,
+      password: process.env.root,
+      database: process.env.hackathon_steto
     });
 
     console.log('MySQL Connected');

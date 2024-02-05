@@ -1,0 +1,13 @@
+.page-container {
+  display: flex;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.side-content {
+  width: 300px; /* Ajustez la largeur selon vos besoins */
+  padding: 20px;
+}

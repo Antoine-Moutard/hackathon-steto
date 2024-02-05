@@ -1,5 +1,5 @@
 import express from 'express';
-import connection from './database';
+import connection from './database/database';
 
 
 const app = express();
@@ -26,3 +26,4 @@ async function executeQuery() {
   }
 }
 
+executeQuery()

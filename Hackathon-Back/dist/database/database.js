@@ -19,13 +19,13 @@ const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
             host: process.env.DB_HOST,
             user: process.env.DB_USER,
             password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME
+            database: process.env.DB_NAME,
         });
-        console.log('MySQL Connected');
+        console.log("MySQL Connected");
         return connection;
     }
     catch (error) {
-        console.error('MySQL Connection Failed', error);
+        console.error("MySQL Connection Failed", error);
         process.exit(1);
     }
 });

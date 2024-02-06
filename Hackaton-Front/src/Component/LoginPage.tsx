@@ -8,10 +8,10 @@ type LoginPageProps = {
 
 export const LoginPage = ({ setEtat, onUserSelect }: LoginPageProps) => {
     // État pour stocker les données des patients
-    const [patients, setPatients] = useState([]);
-    const [pros, setPro] = useState([]);
-    const [nurses, setNurse] = useState([]);
-
+    const [patients, setPatient] = useState<Patient[]>([]);
+    const [pros, setPro] = useState<Pro[]>([]);
+    const [nurses, setNurse] = useState<Nurse[]>([]);
+    
 
     const handleUserClick = (userId: number) => {
         onUserSelect(userId);
@@ -19,34 +19,51 @@ export const LoginPage = ({ setEtat, onUserSelect }: LoginPageProps) => {
         setEtat(newEtat);
     };
 
+    interface Patient {
+        id: number;
+        lastname: string;
+        firstname: string;
+        email: string;
+      }
 
-    useEffect(() => {
+      interface Pro {
+        id: number;
+        lastname: string;
+        firstname: string;
+        email: string;
+        role: string;
+      }
+
+      interface Nurse {
+        id: number;
+        lastname: string;
+        firstname: string;
+        email: string;
+        role: string;
+      }
+
+      useEffect(() => {
         // Fonction pour charger les données des patients
         const fetchPatients = async () => {
             try {
                 const response = await fetch('http://localhost:3000/api/getPatients');
-                const data = await response.json();
-                setPatients(data);
+                const data: Patient[] = await response.json();
+                setPatient(data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des patients :", error);
             }
         };
-
+    
         fetchPatients();
     }, []);
-
-
-
-
-
-
+    
 
     useEffect(() => {
         // Fonction pour charger les données des patients
         const fetchPro = async () => {
             try {
                 const response = await fetch('http://localhost:3000/api/getDoctors');
-                const data = await response.json();
+                const data: Pro[] = await response.json();
                 setPro(data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des docteurs :", error);
@@ -62,7 +79,7 @@ export const LoginPage = ({ setEtat, onUserSelect }: LoginPageProps) => {
         const fetchNurse = async () => {
             try {
                 const response = await fetch('http://localhost:3000/api/getNurses');
-                const data = await response.json();
+                const data: Nurse[] = await response.json();
                 setNurse(data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des nurses :", error);

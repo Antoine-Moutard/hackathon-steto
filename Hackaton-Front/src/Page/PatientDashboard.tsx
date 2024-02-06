@@ -2,16 +2,17 @@ import BloodGlucoseMonitoring from '../Component/BloodMonitoringComponent';
 import InsulinMonitoring from '../Component/InsulinMonitoringComponent';
 import ChatBox from '../Component/ChatBoxComponent';
 import 'tailwindcss/tailwind.css';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Patient } from '../Interface/Patient';
 
 type PatientProps = {
     userId: number | null;
     listPatients: Patient[],
     setListPatients:React.Dispatch<React.SetStateAction<Patient[]>>
+    patient: Patient
 }
 
-const PatientDashboard = ({ userId, setListPatients }: PatientProps) => {
+const PatientDashboard = ({ patient }: PatientProps) => {
     const [isChatboxVisible, setIsChatboxVisible] = useState(false);
     const [isButtonClicked, setIsButtonClicked] = useState(false);
 
@@ -21,21 +22,6 @@ const PatientDashboard = ({ userId, setListPatients }: PatientProps) => {
         setIsButtonClicked(!isButtonClicked);
     };
 
-    useEffect(() => {
-        // Fonction pour charger les données des patients
-        const fetchPatients = async () => {
-            try {
-                const response = await fetch('http://localhost:3000/api/getPatients');
-                const data: Patient[] = await response.json();
-                setListPatients(data);
-            } catch (error) {
-                console.error("Erreur lors de la récupération des patients :", error);
-            }
-        };
-    
-        fetchPatients();
-    }, [])
-
     return (
         <div className="flex flex-col h-screen">
             <div className="flex flex-grow">
@@ -43,7 +29,7 @@ const PatientDashboard = ({ userId, setListPatients }: PatientProps) => {
                     {/* Logo or any other content you want to display */}
                 </div>
                 <div className="flex-1 flex flex-col space-y-6">
-                    <div><p> {userId}</p></div>
+                    <div><p> {patient.firstname} {patient.lastname}</p></div>
                     <BloodGlucoseMonitoring />
                     <InsulinMonitoring />
                 </div>

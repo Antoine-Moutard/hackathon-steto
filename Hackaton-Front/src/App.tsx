@@ -22,7 +22,7 @@ function App() {
   } else if (etat === "connect") {
     return (
       <div className='page-container'>
-        <PatientDashboard userId={selectedUserId} listPatients={listPatients} setListPatients={setListPatients}/>
+        <PatientDashboard userId={selectedUserId} listPatients={listPatients} setListPatients={setListPatients} patient={patient} />
       </div>
     );
   }

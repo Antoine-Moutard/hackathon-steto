@@ -18,8 +18,22 @@ export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients
     const [nurses, setNurse] = useState<Nurse[]>([]);
     
 
-    const handleUserClick = (userId: number) => {
-        onUserSelect(userId);
+    const handleUserClick = (userid: number) => {
+        onUserSelect(userid);
+        let newEtat = "connect";
+        setEtat(newEtat);
+    };
+
+    const handlePatientClick = (newPatient: Patient) => {
+        onUserSelect(newPatient.id);
+        setPatient(newPatient)
+        let newEtat = "connect";
+        setEtat(newEtat);
+    };
+
+    const handleProClick = (newPro: Pro) => {
+        onUserSelect(newPro.id);
+        setPatient(newPro)
         let newEtat = "connect";
         setEtat(newEtat);
     };
@@ -84,7 +98,7 @@ export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients
                 </thead>
                 <tbody>
                     {listPatients.map((patient, index) => (
-                        <tr key={index} onClick={() => handleUserClick(patient.id)}>
+                        <tr key={index} onClick={() => handlePatientClick(patient)}>
                             <td>{patient.firstname}</td>
                             <td>{patient.lastname}</td>
                             <td>{patient.email}</td>
@@ -102,7 +116,7 @@ export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients
                 </thead>
                 <tbody>
                     {pros.map((pro, index) => (
-                        <tr key={index} onClick={() => handleUserClick(pro.id)}>
+                        <tr key={index} onClick={() => handleProClick(pro)}>
                         <th scope="row">{pro.firstname}</th>
                             <td>{pro.lastname}</td>
                             <td>{pro.role}</td>

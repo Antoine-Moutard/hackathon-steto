@@ -76,4 +76,33 @@ router.get("/api/getNurses", async (req, res) => {
   }
 });
 
+// router.get("/api/getPatientById/:PatientID", async (req, res) => {
+//   try {
+//     // Établir la connexion
+//     const connection = await db();
+
+//     // Exécuter la requête
+//     const [users] = await connection.query(
+//       "SELECT * FROM patient WHERE patient.id = ?"
+//     );
+
+//     db.query(sql, [userId], (err, results) => {
+//       if (err) {
+//         console.error(err);
+//         return res.status(500).send('Erreur lors de la requête SQL.');
+//       }
+
+//     // Fermer la connexion
+//     await connection.end();
+
+//     // Envoyer la réponse
+//     res.json(users);
+//   } catch (error) {
+//     console.error("Error fetching users:", error);
+//     res
+//       .status(500)
+//       .json({ message: "Erreur lors de la récupération des utilisateurs" });
+//   }
+// });
+
 export default router;

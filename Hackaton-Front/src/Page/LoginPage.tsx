@@ -4,15 +4,16 @@ import { Nurse } from '../Interface/Nurse';
 import { Pro } from '../Interface/Pro';
 
 type LoginPageProps = {
-    etat: string,
     setEtat: React.Dispatch<React.SetStateAction<string>>,
-    onUserSelect: (userId: number) => void
+    onUserSelect: (userId: number) => void,
+    listPatients: Patient[],
+    setListPatients:React.Dispatch<React.SetStateAction<Patient[]>>,
+    setPatient: React.Dispatch<React.SetStateAction<Patient>>
 }
 
-export const LoginPage = ({ setEtat, onUserSelect }: LoginPageProps) => {
-    
+export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients, setPatient }: LoginPageProps) => {
+
     // État pour stocker les données des patients
-    const [patients, setPatient] = useState<Patient[]>([]);
     const [pros, setPro] = useState<Pro[]>([]);
     const [nurses, setNurse] = useState<Nurse[]>([]);
     
@@ -29,7 +30,7 @@ export const LoginPage = ({ setEtat, onUserSelect }: LoginPageProps) => {
             try {
                 const response = await fetch('http://localhost:3000/api/getPatients');
                 const data: Patient[] = await response.json();
-                setPatient(data);
+                setListPatients(data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des patients :", error);
             }
@@ -82,7 +83,7 @@ export const LoginPage = ({ setEtat, onUserSelect }: LoginPageProps) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {patients.map((patient, index) => (
+                    {listPatients.map((patient, index) => (
                         <tr key={index} onClick={() => handleUserClick(patient.id)}>
                             <td>{patient.firstname}</td>
                             <td>{patient.lastname}</td>

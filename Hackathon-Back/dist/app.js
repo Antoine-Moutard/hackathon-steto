@@ -6,8 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 require("dotenv/config");
 const routes_1 = __importDefault(require("./routes")); // Assurez-vous que le chemin est correct
+const cors = require('cors');
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
+//middleware pour accépter les requetes du frontend
+app.use(cors({ origin: 'http://localhost:5173/' }));
 app.use(express_1.default.json());
 // Utilisez le routeur pour vos routes d'API
 app.use(routes_1.default);

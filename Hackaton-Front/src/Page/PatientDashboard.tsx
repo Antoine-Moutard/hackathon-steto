@@ -1,6 +1,6 @@
-import BloodGlucoseMonitoring from './Component/BloodMonitoring';
-import InsulinMonitoring from './Component/InsulinMonitoring';
-import ChatBox from './Component/ChatBox';
+import BloodGlucoseMonitoring from '../Component/BloodMonitoringComponent';
+import InsulinMonitoring from '../Component/InsulinMonitoringComponent';
+import ChatBox from '../Component/ChatBoxComponent';
 import 'tailwindcss/tailwind.css';
 import { useState } from "react";
 
@@ -24,7 +24,7 @@ const PatientDashboard = ({ userId }: PatientProps) => {
                     {/* Logo or any other content you want to display */}
                 </div>
                 <div className="flex-1 flex flex-col space-y-6">
-                    <p> {userId}</p>
+                    <div><p> {userId}</p></div>
                     <BloodGlucoseMonitoring />
                     <InsulinMonitoring />
                 </div>

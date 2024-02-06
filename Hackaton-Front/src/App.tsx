@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import { LoginPage } from './Component/LoginPage';
-import PatientDashboard from "./PatientDashboard.tsx";
+import { LoginPage } from './Page/LoginPage.tsx';
+import PatientDashboard from "./Page/PatientDashboard.tsx";
 
 function App() {
   const [etat, setEtat] = useState<string>("login");

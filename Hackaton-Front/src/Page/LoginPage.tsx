@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { Patient } from '../Interface/Patient';
+import { Nurse } from '../Interface/Nurse';
+import { Pro } from '../Interface/Pro';
 
 type LoginPageProps = {
     etat: string,
@@ -7,6 +10,7 @@ type LoginPageProps = {
 }
 
 export const LoginPage = ({ setEtat, onUserSelect }: LoginPageProps) => {
+    
     // État pour stocker les données des patients
     const [patients, setPatient] = useState<Patient[]>([]);
     const [pros, setPro] = useState<Pro[]>([]);
@@ -18,29 +22,6 @@ export const LoginPage = ({ setEtat, onUserSelect }: LoginPageProps) => {
         let newEtat = "connect";
         setEtat(newEtat);
     };
-
-    interface Patient {
-        id: number;
-        lastname: string;
-        firstname: string;
-        email: string;
-      }
-
-      interface Pro {
-        id: number;
-        lastname: string;
-        firstname: string;
-        email: string;
-        role: string;
-      }
-
-      interface Nurse {
-        id: number;
-        lastname: string;
-        firstname: string;
-        email: string;
-        role: string;
-      }
 
       useEffect(() => {
         // Fonction pour charger les données des patients

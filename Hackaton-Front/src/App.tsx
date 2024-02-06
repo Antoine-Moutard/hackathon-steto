@@ -2,15 +2,25 @@ import { useState } from 'react'
 import './App.css'
 import { MainPage } from './Component/MainPage'
 import { ChatBox } from './Component/ChatBox'
+import { LoginPage } from './Component/LoginPage'
 
 function App() {
 
-  return (
-    
-    <div className='page-container'>
-      <MainPage/>
-      <ChatBox/>
-    </div>
+  const [etat, setEtat] = useState<string>("login")
+
+  if (etat == "login"){
+    return(
+      <LoginPage etat={etat} setEtat={setEtat}/>
+    )
+  }
+  else if (etat == "connect"){
+    return ( 
+      <div className='page-container'>
+        <MainPage/>
+        <ChatBox/>
+      </div>
+    )
+  }
     
       // {/* <div>
       //   <a href="https://vitejs.dev" target="_blank">
@@ -33,7 +43,7 @@ function App() {
       //   Click on the Vite and React logos to learn more
       // </p> */}
     
-  )
+  // )
 }
 
 export default App

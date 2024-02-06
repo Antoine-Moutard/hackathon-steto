@@ -2,14 +2,21 @@ import React, { useEffect, useState } from 'react';
 
 type LoginPageProps = {
     etat: string,
-    setEtat: React.Dispatch<React.SetStateAction<string>>
+    setEtat: React.Dispatch<React.SetStateAction<string>>,
+    onUserSelect: (userId: number) => void
 }
 
-export const LoginPage = ({ etat, setEtat }: LoginPageProps) => {
+export const LoginPage = ({ etat, setEtat, onUserSelect }: LoginPageProps) => {    
     // État pour stocker les données des patients
     const [patients, setPatients] = useState([]);
     const [pros, setPro] = useState([]);
     const [nurses, setNurse] = useState([]);
+
+
+    const handleUserClick = (userId: number) => {
+        onUserSelect(userId);
+        // Ici, vous pouvez également changer l'état si nécessaire
+    };
 
 
     useEffect(() => {
@@ -81,8 +88,7 @@ export const LoginPage = ({ etat, setEtat }: LoginPageProps) => {
                 </thead>
                 <tbody>
                     {patients.map((patient, index) => (
-                        <tr key={index} onClick={() => test()}>
-                            <th scope="row">{patient.firstname}</th>
+                        <tr key={index} onClick={() => handleUserClick(patient.id)}>
                             <td>{patient.lastname}</td>
                             <td>{patient.email}</td>
                         </tr>
@@ -99,8 +105,8 @@ export const LoginPage = ({ etat, setEtat }: LoginPageProps) => {
                 </thead>
                 <tbody>
                     {pros.map((pro, index) => (
-                        <tr key={index} onClick={() => test()}>
-                            <th scope="row">{pro.firstname}</th>
+                        <tr key={index} onClick={() => handleUserClick(pro.id)}>
+                        <th scope="row">{pro.firstname}</th>
                             <td>{pro.lastname}</td>
                             <td>{pro.role}</td>
                         </tr>
@@ -117,8 +123,8 @@ export const LoginPage = ({ etat, setEtat }: LoginPageProps) => {
                 </thead>
                 <tbody>
                     {nurses.map((nurse, index) => (
-                        <tr key={index} onClick={() => test()}>
-                            <th scope="row">{nurse.firstname}</th>
+                        <tr key={index} onClick={() => handleUserClick(nurse.id)}>
+                        <th scope="row">{nurse.firstname}</th>
                             <td>{nurse.lastname}</td>
                             <td>{nurse.role}</td>
                         </tr>

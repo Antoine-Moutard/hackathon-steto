@@ -6,7 +6,7 @@ type LoginPageProps = {
     onUserSelect: (userId: number) => void
 }
 
-export const LoginPage = ({ etat, setEtat, onUserSelect }: LoginPageProps) => {    
+export const LoginPage = ({ setEtat, onUserSelect }: LoginPageProps) => {
     // État pour stocker les données des patients
     const [patients, setPatients] = useState([]);
     const [pros, setPro] = useState([]);
@@ -15,7 +15,8 @@ export const LoginPage = ({ etat, setEtat, onUserSelect }: LoginPageProps) => {
 
     const handleUserClick = (userId: number) => {
         onUserSelect(userId);
-        // Ici, vous pouvez également changer l'état si nécessaire
+        let newEtat = "connect";
+        setEtat(newEtat);
     };
 
 
@@ -71,10 +72,6 @@ export const LoginPage = ({ etat, setEtat, onUserSelect }: LoginPageProps) => {
         fetchNurse();
     }, []);
 
-    function test() {
-        let newEtat = "connect";
-        setEtat(newEtat);
-    }
 
     return (
         <div>

@@ -9,18 +9,21 @@ type LoginPageProps = {
     listPatients: Patient[],
     setListPatients:React.Dispatch<React.SetStateAction<Patient[]>>,
     setPatient: React.Dispatch<React.SetStateAction<Patient>>
+    setNurse: React.Dispatch<React.SetStateAction<Nurse>>
+    setPro: React.Dispatch<React.SetStateAction<Pro>>
 }
 
-export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients, setPatient }: LoginPageProps) => {
+export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients, setPatient, setNurse, setPro }: LoginPageProps) => {
 
     // État pour stocker les données des patients
-    const [pros, setPro] = useState<Pro[]>([]);
-    const [nurses, setNurse] = useState<Nurse[]>([]);
+    const [listPros, setListPro] = useState<Pro[]>([]);
+    const [listNurses, setListNurse] = useState<Nurse[]>([]);
     
 
-    const handleUserClick = (userid: number) => {
-        onUserSelect(userid);
-        let newEtat = "connect";
+    const handleNurseClick = (nurse: Nurse) => {
+        onUserSelect(nurse.id);
+        setNurse(nurse)
+        let newEtat = "careteam";
         setEtat(newEtat);
     };
 
@@ -33,8 +36,8 @@ export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients
 
     const handleProClick = (newPro: Pro) => {
         onUserSelect(newPro.id);
-        setPatient(newPro)
-        let newEtat = "connect";
+        setPro(newPro)
+        let newEtat = "careteam";
         setEtat(newEtat);
     };
 
@@ -60,7 +63,7 @@ export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients
             try {
                 const response = await fetch('http://localhost:3000/api/getDoctors');
                 const data: Pro[] = await response.json();
-                setPro(data);
+                setListPro(data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des docteurs :", error);
             }
@@ -76,7 +79,7 @@ export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients
             try {
                 const response = await fetch('http://localhost:3000/api/getNurses');
                 const data: Nurse[] = await response.json();
-                setNurse(data);
+                setListNurse(data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des nurses :", error);
             }
@@ -115,7 +118,7 @@ export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients
                     </tr>
                 </thead>
                 <tbody>
-                    {pros.map((pro, index) => (
+                    {listPros.map((pro, index) => (
                         <tr key={index} onClick={() => handleProClick(pro)}>
                         <th scope="row">{pro.firstname}</th>
                             <td>{pro.lastname}</td>
@@ -133,8 +136,8 @@ export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients
                     </tr>
                 </thead>
                 <tbody>
-                    {nurses.map((nurse, index) => (
-                        <tr key={index} onClick={() => handleUserClick(nurse.id)}>
+                    {listNurses.map((nurse, index) => (
+                        <tr key={index} onClick={() => handleNurseClick(nurse)}>
                         <th scope="row">{nurse.firstname}</th>
                             <td>{nurse.lastname}</td>
                             <td>{nurse.role}</td>

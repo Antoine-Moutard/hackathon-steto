@@ -17,26 +17,28 @@ const database_1 = __importDefault(require("./database/database"));
 // Créez une instance de Router
 const router = (0, express_1.Router)();
 // Définition des routes
-router.get('/', (req, res) => {
-    res.send('Bienvenue sur mon API !');
+router.get("/", (req, res) => {
+    res.send("Bienvenue sur mon API !");
 });
-router.get('/api/getPatients', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/getPatients", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Établir la connexion
         const connection = yield (0, database_1.default)();
         // Exécuter la requête
-        const [users] = yield connection.query('SELECT * FROM patient');
+        const [users] = yield connection.query("SELECT * FROM patient");
         // Fermer la connexion
         yield connection.end();
         // Envoyer la réponse
         res.json(users);
     }
     catch (error) {
-        console.error('Error fetching users:', error);
-        res.status(500).json({ message: "Erreur lors de la récupération des utilisateurs" });
+        console.error("Error fetching users:", error);
+        res
+            .status(500)
+            .json({ message: "Erreur lors de la récupération des utilisateurs" });
     }
 }));
-router.get('/api/getDoctors', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/getDoctors", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Établir la connexion
         const connection = yield (0, database_1.default)();
@@ -48,11 +50,13 @@ router.get('/api/getDoctors', (req, res) => __awaiter(void 0, void 0, void 0, fu
         res.json(users);
     }
     catch (error) {
-        console.error('Error fetching users:', error);
-        res.status(500).json({ message: "Erreur lors de la récupération des utilisateurs" });
+        console.error("Error fetching users:", error);
+        res
+            .status(500)
+            .json({ message: "Erreur lors de la récupération des utilisateurs" });
     }
 }));
-router.get('/api/getNurses', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/getNurses", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Établir la connexion
         const connection = yield (0, database_1.default)();
@@ -64,8 +68,10 @@ router.get('/api/getNurses', (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.json(users);
     }
     catch (error) {
-        console.error('Error fetching users:', error);
-        res.status(500).json({ message: "Erreur lors de la récupération des utilisateurs" });
+        console.error("Error fetching users:", error);
+        res
+            .status(500)
+            .json({ message: "Erreur lors de la récupération des utilisateurs" });
     }
 }));
 exports.default = router;

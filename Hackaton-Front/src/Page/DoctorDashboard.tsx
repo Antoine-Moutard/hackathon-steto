@@ -1,5 +1,3 @@
-export const DoctorDashboard = () =>{
-    return(
-        <div> dddd</div>
-    )
-}
+export const DoctorDashboard = () => {
+  return <div> dddd</div>;
+};

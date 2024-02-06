@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import './App.css';
-import { MainPage } from './Component/MainPage';
-import { ChatBox } from './Component/ChatBox';
 import { LoginPage } from './Component/LoginPage';
+import PatientDashboard from "./PatientDashboard.tsx";
 
 function App() {
   const [etat, setEtat] = useState<string>("login");
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
 
   const handleUserSelect = (userId: number) => {
-    setSelectedUserId(userId);
+   setSelectedUserId(userId);
     setEtat("connect");
   };
 
@@ -20,8 +19,7 @@ function App() {
   } else if (etat === "connect") {
     return (
       <div className='page-container'>
-        <MainPage userId={selectedUserId} />
-        <ChatBox />
+        <PatientDashboard userId={selectedUserId}  />
       </div>
     );
   }

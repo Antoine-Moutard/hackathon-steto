@@ -7,17 +7,16 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-.idea/workspace.xml
-node_modules
-dist
-dist-ssr
-.local
 
 Editor directories and files
 .vscode/
 !.vscode/extensions.json
 .idea/
 Hackathon-Back/dist/
+.idea/workspace.xml
+Hackaton-Front/node_modules/
+dist-ssr
+.local
 .DS_Store
 *.suo
 .ntvs

@@ -86,6 +86,7 @@ export const LoginPage = ({ setEtat, onUserSelect }: LoginPageProps) => {
                 <tbody>
                     {patients.map((patient, index) => (
                         <tr key={index} onClick={() => handleUserClick(patient.id)}>
+                            <td>{patient.firstname}</td>
                             <td>{patient.lastname}</td>
                             <td>{patient.email}</td>
                         </tr>

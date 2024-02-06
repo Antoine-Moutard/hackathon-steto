@@ -12,6 +12,7 @@ Editor directories and files
 .vscode/
 !.vscode/extensions.json
 .idea/
+.env
 Hackathon-Back/dist/
 .idea/workspace.xml
 Hackaton-Front/node_modules/

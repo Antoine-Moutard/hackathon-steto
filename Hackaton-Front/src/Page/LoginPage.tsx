@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Patient } from '../Interface/Patient';
 import { Nurse } from '../Interface/Nurse';
 import { Pro } from '../Interface/Pro';
+import PatientDashboard from './PatientDashboard';
 
 type LoginPageProps = {
     setEtat: React.Dispatch<React.SetStateAction<string>>,
@@ -47,6 +48,7 @@ export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients
             try {
                 const response = await fetch('http://localhost:3000/api/getPatients');
                 const data: Patient[] = await response.json();
+                console.log(data);
                 setListPatients(data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des patients :", error);
@@ -97,6 +99,7 @@ export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients
                         <th scope="col">Prénom</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Email</th>
+                        <th scope="col">careteam</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -105,6 +108,7 @@ export const LoginPage = ({ setEtat, onUserSelect, setListPatients, listPatients
                             <td>{patient.firstname}</td>
                             <td>{patient.lastname}</td>
                             <td>{patient.email}</td>
+                            <td>{patient.careTeamId}</td>
                         </tr>
                     ))}
                 </tbody>

@@ -16,7 +16,6 @@ const PatientDashboard = ({ patient }: PatientProps) => {
     const [isChatboxVisible, setIsChatboxVisible] = useState(false);
     const [isButtonClicked, setIsButtonClicked] = useState(false);
 
-
     const toggleChatbox = () => {
         setIsChatboxVisible(!isChatboxVisible);
         setIsButtonClicked(!isButtonClicked);
@@ -43,8 +42,7 @@ const PatientDashboard = ({ patient }: PatientProps) => {
                 </div>
                 <span>Chat</span>
             </button>
-            {isChatboxVisible && <ChatBox />} {/* Affichez la chatbox si isChatboxVisible est vrai */}
-        </div>
+            {isChatboxVisible && <ChatBox senderId={patient.id} careTeamId={patient.careTeamId} />}        </div>
     );
 };
 

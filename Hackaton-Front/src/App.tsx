@@ -11,7 +11,7 @@ function App() {
   const [etat, setEtat] = useState<string>("login");
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const [listPatients, setListPatients] = useState<Patient[]>([]);
-  const [patient, setPatient] = useState<Patient>({id: 0, email:"" , firstname: "", lastname:""});
+  const [patient, setPatient] = useState<Patient>({id: 0, email:"" , firstname: "", lastname:"", careTeamId:""});
   const [nurse, setNurse] = useState<Nurse>({id: 0, email:"" , firstname: "", lastname:"", role:""});
   const [pro, setPro] = useState<Pro>({id: 0, email:"" , firstname: "", lastname:"", role:""});
 

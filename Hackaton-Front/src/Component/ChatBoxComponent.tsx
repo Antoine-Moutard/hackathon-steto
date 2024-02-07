@@ -4,14 +4,16 @@ import { Patient } from "../Interface/Patient";
 
 
 type ChatBoxComponentProps = {
-  patient : Patient
+  patient : Patient,
+  toggleChatBox: any
 }
 
-const ChatBox = ({patient}: ChatBoxComponentProps) => {
+const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
   const [isChatboxOpen, setIsChatboxOpen] = useState(true);
   const [message, setMessage] = useState<Message>({careTeamId: "", senderId: patient, content: "", createdAt: "",messageType:""});
   const [listMessage, setListMessage] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState<string>("")
+  const [isFilterMessages, setIsFilterMessages] = useState(false);
 
   const closeChatbox = () => {
     setIsChatboxOpen(false);
@@ -32,7 +34,7 @@ const ChatBox = ({patient}: ChatBoxComponentProps) => {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Messagerie</h2>
         <button
-          onClick={props.toggleChatbox}
+          onClick={toggleChatBox}
           className="hover:bg-blue-200 p-2 rounded-full"
         >
           <svg

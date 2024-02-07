@@ -3,7 +3,7 @@ import InsulinMonitoring from "../Component/InsulinMonitoringComponent";
 import "tailwindcss/tailwind.css";
 import { useState } from "react";
 import { Patient } from "../Interface/Patient";
-import ChatBoxComponent from "../Component/ChatBoxComponent";
+import  ChatBoxComponent  from "../Component/ChatBoxComponent";
 
 type PatientProps = {
   userId: number | null;
@@ -20,7 +20,8 @@ const PatientDashboard = ({ patient }: PatientProps) => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div>
+        <div className="flex flex-col h-screen">
       <div className="flex flex-grow">
         <div className="w-20 bg-yellow-100 text-center">
           <div className="">Logo de Steto si on le trouve</div>
@@ -78,19 +79,13 @@ const PatientDashboard = ({ patient }: PatientProps) => {
           >
             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z" />
           </svg>
-
-                <div className="w-8 h-8 bg-white rounded-full">
-                    {/* Logo or any other content you want to display */}
-                </div>
-                <span>Chat</span>
-            </button>
-            {isChatboxVisible && <ChatBox patient={patient}/>} {/* Affichez la chatbox si isChatboxVisible est vrai */}
-
         </div>
         <span>Messagerie</span>
       </button>
-      {isChatboxVisible && <ChatBoxComponent toggleChatbox={toggleChatbox} />}
+      {isChatboxVisible && <ChatBoxComponent patient={patient} toggleChatBox={toggleChatbox} />}
     </div>
+    </div>
+    
   );
 };
 

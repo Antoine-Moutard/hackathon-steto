@@ -107,7 +107,7 @@ const PatientDashboard = ({ patient }: PatientProps) => {
         </div>
         <span>Messagerie</span>
       </button>
-      {isChatboxVisible && <ChatBoxComponent patient={patient} toggleChatBox={toggleChatbox} listMessage={listMessage} setListMessage={setListMessage}/>}
+      {isChatboxVisible && <ChatBoxComponent patient={patient} toggleChatBox={toggleChatbox} listMessage={listMessage} setListMessage={setListMessage} />}
     </div>
     </div>
     

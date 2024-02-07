@@ -8,16 +8,15 @@ type ChatBoxComponentProps = {
   patient : Patient
   toggleChatBox: () => void
   listMessage: Message[],
-  setListMessage: React.Dispatch<React.SetStateAction<Message[]>>
+  setListMessage: React.Dispatch<React.SetStateAction<Message[]>> 
 }
 
 const ChatBoxComponent = ({patient, toggleChatBox, listMessage, setListMessage}: ChatBoxComponentProps) => {
   const [isChatboxOpen, setIsChatboxOpen] = useState(true);
-  const [message, setMessage] = useState<Message>({careTeamId: "", senderId: patient, content: "",messageType:""});
+  const [message, setMessage] = useState<Message>({id: null, message_content: null, message_date: null, sender_name: null});
   
   const [inputValue, setInputValue] = useState<string>("")
   const [isFilterMessages, setIsFilterMessages] = useState(false);
-  
   let newListMessage = listMessage
 
   const closeChatbox = () => {
@@ -27,13 +26,14 @@ const ChatBoxComponent = ({patient, toggleChatBox, listMessage, setListMessage}:
 
   function sendMessage(e: any){
       console.log(listMessage)
-      let newMessage = {careTeamId: "1", senderId: patient, content: inputValue, messageType:"Groupe"}
+      let newMessage = {id: null, message_content: inputValue, message_date: null,  sender_name: patient.firstname + patient.lastname}
       setMessage(newMessage)
       
+      console.log(newMessage)
       newListMessage.push(newMessage)
       setListMessage(newListMessage)
 
-      saveMessage(e, newMessage.content)
+      saveMessage(e, newMessage.message_content)
       setInputValue("")
   };
 
@@ -98,7 +98,7 @@ const ChatBoxComponent = ({patient, toggleChatBox, listMessage, setListMessage}:
 
       <div className="flex flex-col h-full">        
         <div>
-          {listMessage.map((message) => <p> {message.content}</p>)}
+          {listMessage.map((mess) => <p>{mess.sender_name} : {mess.message_content} <br/> ({mess.message_date}) <br/> <br/> </p>)}
         </div>
         <div className="absolute inset-x-0 bottom-2 w-11/12 ml-5">
           <form className="flex" onSubmit={(event) => event.preventDefault()}>

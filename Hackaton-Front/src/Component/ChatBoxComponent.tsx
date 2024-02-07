@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Message } from "../Interface/Message";
 import { Patient } from "../Interface/Patient";
-
+import {MessageComponent} from "../Component/Message.tsx"
 
 
 type ChatBoxComponentProps = {
@@ -97,9 +97,7 @@ const ChatBoxComponent = ({patient, toggleChatBox, listMessage, setListMessage}:
       </div>
 
       <div className="flex flex-col h-full">        
-        <div>
-          {listMessage.map((mess) => <p>{mess.sender_name} : {mess.message_content} <br/> ({mess.message_date}) <br/> <br/> </p>)}
-        </div>
+        <MessageComponent listMessage={listMessage}/>
         <div className="absolute inset-x-0 bottom-2 w-11/12 ml-5">
           <form className="flex" onSubmit={(event) => event.preventDefault()}>
             <input

@@ -127,31 +127,53 @@ router.post("/api/sendMessage", (req, res) => __awaiter(void 0, void 0, void 0, 
  * @param req - The request object.
  * @param res - The response object.
  */
-router.post("/api/getMessageByPatientId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/getMessageByPatientId/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        // Retrieves the message data from the request body
-        const { patientId } = req.body;
-        if (!patientId) {
+        // Establishes a connection
+        const connection = yield (0, database_1.default)();
+        if (!req.params.id) {
             return res
                 .status(400)
                 .json({ message: "Missing data to send the message" });
         }
-        // Establishes a connection
-        const connection = yield (0, database_1.default)();
-        // Prepares and executes the query
-        const sql = "SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id LEFT JOIN practitioner pr ON m.senderId = pr.id LEFT JOIN patient p ON m.senderId = p.id WHERE c.subjectId = ?";
-        yield connection.query(sql, [patientId]);
+        // Executes the query
+        const [messages] = yield connection.query("SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id LEFT JOIN practitioner pr ON m.senderId = pr.id LEFT JOIN patient p ON m.senderId = p.id WHERE c.subjectId = " + [req.params.id]);
         // Closes the connection
         yield connection.end();
         // Sends the response
-        res.status(200).json({ message: "Message retrieved successfully" });
+        res.json(messages);
     }
     catch (error) {
-        console.error("Error retrieving message:", error);
+        console.error("Error fetching users:", error);
         res
             .status(500)
-            .json({ message: "Error retrieving message" });
+            .json({ message: "Error fetching users" });
     }
+    //   try {
+    //     // Retrieves the message data from the request body
+    //     const { careTeamId } = req.body;
+    //     if (!careTeamId) {
+    //       return res
+    //         .status(400)
+    //         .json({ message: "Missing data to send the message" });
+    //     }
+    //     // Establishes a connection
+    //     const connection = await db();
+    //     // Prepares and executes the query
+    // // const sql = "INSERT INTO message (senderId, content) VALUES (?, ?)";
+    //     // const sql = "SELECT * FROM MESSAGE Where careTeamId = ?";
+    //     const [messages] = await connection.query(
+    //       "SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id LEFT JOIN practitioner pr ON m.senderId = pr.id LEFT JOIN patient p ON m.senderId = p.id WHERE c.subjectId = ?"
+    //     );
+    //     // await connection.query(sql, [careTeamId]);
+    //     // Closes the connection
+    //     await connection.end();
+    //     // Sends the response
+    //     res.status(200).json(messages);
+    //     } catch (error) {
+    //       console.error("Error retrieving message:", error);
+    //       res.status(500).json({ message: "Error retrieving message" });
+    //    }
 }));
 /**
  * Gets non-pro messages for a given care team ID.

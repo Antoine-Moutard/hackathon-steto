@@ -4,6 +4,7 @@ import "tailwindcss/tailwind.css";
 import { useState } from "react";
 import { Patient } from "../Interface/Patient";
 import  ChatBoxComponent  from "../Component/ChatBoxComponent";
+import { Message } from "../Interface/Message";
 
 type PatientProps = {
   userId: number | null;
@@ -15,10 +16,33 @@ type PatientProps = {
 const PatientDashboard = ({ patient }: PatientProps) => {
 
   const [isChatboxVisible, setIsChatboxVisible] = useState(false);
+  const [listMessage, setListMessage] = useState<Message[]>([])
 
   const toggleChatbox = () => {
     setIsChatboxVisible(!isChatboxVisible);
+    getListMessage()
+    // console.log(listMessage)
   };
+
+  const getListMessage = async () => {  
+      try {
+        console.log("Je rentre dans la récupération")
+          const response = await fetch("http://localhost:3000/api/getMessageByPatientId/'" + patient.id +"'", {
+              method: 'GET',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              
+              // body: JSON.stringify({ careTeamId: patient.id}),
+          });
+          const data: Message[] = await response.json();
+          console.log(data)
+          setListMessage(data);
+          // ...gestion de la réponse
+      } catch (error) {
+          console.error("Erreur lors de l'envoi du message:", error);
+      }
+  }
 
   return (
     <div>
@@ -83,7 +107,7 @@ const PatientDashboard = ({ patient }: PatientProps) => {
         </div>
         <span>Messagerie</span>
       </button>
-      {isChatboxVisible && <ChatBoxComponent patient={patient} toggleChatBox={toggleChatbox} />}
+      {isChatboxVisible && <ChatBoxComponent patient={patient} toggleChatBox={toggleChatbox} listMessage={listMessage} setListMessage={setListMessage}/>}
     </div>
     </div>
     

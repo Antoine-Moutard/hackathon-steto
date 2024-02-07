@@ -7,14 +7,18 @@ import { Patient } from "../Interface/Patient";
 type ChatBoxComponentProps = {
   patient : Patient
   toggleChatBox: () => void
+  listMessage: Message[],
+  setListMessage: React.Dispatch<React.SetStateAction<Message[]>>
 }
 
-const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
+const ChatBoxComponent = ({patient, toggleChatBox, listMessage, setListMessage}: ChatBoxComponentProps) => {
   const [isChatboxOpen, setIsChatboxOpen] = useState(true);
   const [message, setMessage] = useState<Message>({careTeamId: "", senderId: patient, content: "",messageType:""});
-  const [listMessage, setListMessage] = useState<Message[]>([])
+  
   const [inputValue, setInputValue] = useState<string>("")
   const [isFilterMessages, setIsFilterMessages] = useState(false);
+  
+  let newListMessage = listMessage
 
   const closeChatbox = () => {
     setIsChatboxOpen(false);
@@ -22,11 +26,10 @@ const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
 
 
   function sendMessage(e: any){
-      // console.log(inputValue)
+      console.log(listMessage)
       let newMessage = {careTeamId: "1", senderId: patient, content: inputValue, messageType:"Groupe"}
-      // console.log(inputValue)
       setMessage(newMessage)
-      let newListMessage = listMessage
+      
       newListMessage.push(newMessage)
       setListMessage(newListMessage)
 
@@ -52,31 +55,6 @@ const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
           console.error("Erreur lors de l'envoi du message:", error);
       }
   }
-
-
-  useEffect(() => {
-    const getMessage = async () => {  
-      // console.log(patient)  
-      // e.preventDefault();
-        try {
-            const response = await fetch('http://localhost:3000/api/getMessageByPatientId', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ patientId: patient.id}),
-            });
-    
-            // ...gestion de la réponse
-        } catch (error) {
-            console.error("Erreur lors de l'envoi du message:", error);
-        }
-    }
-    getMessage().then((response)  => console.log("je suis la " + response))
-    // console.log(histomessage)
-  })
-  
-
 
   return (
     <div className="bg-slate-100 p-6 rounded-tl-3xl shadow-md fixed top-0 right-0 h-full w-1/4">
@@ -120,9 +98,7 @@ const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
 
       <div className="flex flex-col h-full">        
         <div>
-          {/* <p> */}
-            {listMessage.map((message) => <p key={"a"}>{message.senderId.firstname} {message.senderId.lastname} : {message.content}</p>)}
-          {/* </p> */}
+          {listMessage.map((message) => <p> {message.content}</p>)}
         </div>
         <div className="absolute inset-x-0 bottom-2 w-11/12 ml-5">
           <form className="flex" onSubmit={(event) => event.preventDefault()}>

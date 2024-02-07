@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Message } from "../Interface/Message";
 import { Patient } from "../Interface/Patient";
 
@@ -54,24 +54,28 @@ const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
   }
 
 
-
-  const getMessage = async (e: any, content: string) => {  
-    console.log(patient)  
-    e.preventDefault();
-      try {
-          const response = await fetch('http://localhost:3000/api/sendMessage', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ senderId: patient.id, careTeamId: patient.careTeamId, messageContent: content }),
-          });
+  useEffect(() => {
+    const getMessage = async () => {  
+      // console.log(patient)  
+      // e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:3000/api/getMessageByPatientId', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ patientId: patient.id}),
+            });
+    
+            // ...gestion de la réponse
+        } catch (error) {
+            console.error("Erreur lors de l'envoi du message:", error);
+        }
+    }
+    getMessage().then((response)  => console.log("je suis la " + response))
+    // console.log(histomessage)
+  })
   
-          // ...gestion de la réponse
-      } catch (error) {
-          console.error("Erreur lors de l'envoi du message:", error);
-      }
-  }
 
 
   return (

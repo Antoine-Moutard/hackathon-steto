@@ -154,21 +154,21 @@ router.post("/api/getMessageByPatientId", async (req, res) => {
 
     // Prepares and executes the query
 
-    const sql = "SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id LEFT JOIN practitioner pr ON m.senderId = pr.id LEFT JOIN patient p ON m.senderId = p.id WHERE c.subjectId = ?";
-
-    await connection.query(sql, [patientId]);
+    const [messages] = await connection.query(
+      "SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id LEFT JOIN practitioner pr ON m.senderId = pr.id LEFT JOIN patient p ON m.senderId = p.id WHERE c.subjectId = ?"
+    );
 
     // Closes the connection
     await connection.end();
 
-    // Sends the response
-    res.status(200).json({ message: "Message retrieved successfully" });
-  } catch (error) {
-    console.error("Error retrieving message:", error);
-    res
-      .status(500)
-      .json({ message: "Error retrieving message" });
-  }
+       // Sends the response
+       res.json(messages);
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+        res
+          .status(500)
+          .json({ message: "Error fetching messsages" });
+   }
 });
 
 /**

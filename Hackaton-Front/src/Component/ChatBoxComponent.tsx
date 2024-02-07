@@ -1,11 +1,31 @@
 import { useState } from "react";
+import { Message } from "../Interface/Message";
+import { Patient } from "../Interface/Patient";
 
-const ChatBoxComponent = (props: any) => {
-  /**
-   * Si isFilterMessages est Faux alors on affiche tous les messages
-   * sinon si il est Vrai alors on affiche seulement les messages entre pros
-   */
-  const [isFilterMessages, setIsFilterMessages] = useState(false);
+
+type ChatBoxComponentProps = {
+  patient : Patient
+}
+
+const ChatBox = ({patient}: ChatBoxComponentProps) => {
+  const [isChatboxOpen, setIsChatboxOpen] = useState(true);
+  const [message, setMessage] = useState<Message>({careTeamId: "", senderId: patient, content: "", createdAt: "",messageType:""});
+  const [listMessage, setListMessage] = useState<Message[]>([])
+  const [inputValue, setInputValue] = useState<string>("")
+
+  const closeChatbox = () => {
+    setIsChatboxOpen(false);
+  };
+
+  function sendMessage(){
+    console.log(inputValue)
+    let newMessage = {careTeamId: "1", senderId: patient, content: inputValue, createdAt: "18/20/06",messageType:"Tous"}
+    console.log(inputValue)
+    setMessage(newMessage)
+    let newListMessage = listMessage
+    newListMessage.push(newMessage)
+    setListMessage(newListMessage)
+  }
 
   return (
     <div className="bg-slate-100 p-6 rounded-tl-3xl shadow-md fixed top-0 right-0 h-full w-1/4">
@@ -47,19 +67,25 @@ const ChatBoxComponent = (props: any) => {
         </button>
       </div>
 
-      <div className="flex flex-col h-full">
-        <div></div>
-        <div className="absolute inset-x-0 bottom-5 w-11/12 ml-5">
+      <div className="flex flex-col h-full">        
+        <div>
+          {/* <p> */}
+            {listMessage.map((message) => <p key={"a"}>{message.senderId.firstname} {message.senderId.lastname} : {message.content}</p>)}
+          {/* </p> */}
+        </div>
+        <div className="absolute inset-x-0 bottom-2 w-11/12 ml-5">
           <form className="flex" onSubmit={(event) => event.preventDefault()}>
             <input
               id="messageInput"
               className="flex-1 p-2 border rounded-l-lg"
               type="text"
               placeholder="Écrire un message..."
+              onChange={(event) =>setInputValue(event.target.value) }
             />
             <button
               className="bg-blue-950 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-r-lg"
               type="submit"
+              onClick={() => sendMessage()}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

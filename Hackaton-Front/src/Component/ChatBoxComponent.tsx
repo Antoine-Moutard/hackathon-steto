@@ -78,7 +78,7 @@ const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
           {/* </p> */}
         </div>
         <div className="absolute inset-x-0 bottom-2 w-11/12 ml-5">
-          <form className="flex" onSubmit={sendMessage}>
+          <form className="flex">
             <input
               id="messageInput"
               className="flex-1 p-2 border rounded-l-lg"

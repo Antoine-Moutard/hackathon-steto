@@ -5,7 +5,7 @@ import { Patient } from "../Interface/Patient";
 
 
 type ChatBoxComponentProps = {
-  patient : Patient,
+  patient : Patient
   toggleChatBox: () => void
 }
 
@@ -16,9 +16,9 @@ const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
   const [inputValue, setInputValue] = useState<string>("")
   const [isFilterMessages, setIsFilterMessages] = useState(false);
 
-  // const closeChatbox = () => {
-  //   setIsChatboxOpen(false);
-  // };
+  const closeChatbox = () => {
+    setIsChatboxOpen(false);
+  };
 
 
   function sendMessage(e: any){

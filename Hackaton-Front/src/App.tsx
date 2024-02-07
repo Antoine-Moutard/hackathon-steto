@@ -1,11 +1,10 @@
-import { useState } from 'react';
-import './App.css';
-import { LoginPage } from './Page/LoginPage.tsx';
+import { useState } from "react";
+import { LoginPage } from "./Page/LoginPage.tsx";
 import PatientDashboard from "./Page/PatientDashboard.tsx";
-import { Patient } from './Interface/Patient.tsx';
-import { Nurse } from './Interface/Nurse.tsx';
-import { Pro } from './Interface/Pro.tsx';
-import { DoctorDashboard } from './Page/DoctorDashboard.tsx';
+import { Patient } from "./Interface/Patient.tsx";
+import { Nurse } from "./Interface/Nurse.tsx";
+import { Pro } from "./Interface/Pro.tsx";
+import { DoctorDashboard } from "./Page/DoctorDashboard.tsx";
 
 function App() {
   const [etat, setEtat] = useState<string>("login");
@@ -15,24 +14,38 @@ function App() {
   const [nurse, setNurse] = useState<Nurse>({id: 0, email:"" , firstname: "", lastname:"", role:""});
   const [pro, setPro] = useState<Pro>({id: 0, email:"" , firstname: "", lastname:"", role:""});
 
+
   const handleUserSelect = (userId: number) => {
-   setSelectedUserId(userId);
+    setSelectedUserId(userId);
     setEtat("connect");
   };
 
   if (etat === "login") {
     return (
-      <LoginPage setEtat={setEtat} onUserSelect={handleUserSelect} listPatients={listPatients} setListPatients={setListPatients} setPatient={setPatient} setNurse={setNurse} setPro={setPro} />
+      <LoginPage
+        setEtat={setEtat}
+        onUserSelect={handleUserSelect}
+        listPatients={listPatients}
+        setListPatients={setListPatients}
+        setPatient={setPatient}
+        setNurse={setNurse}
+        setPro={setPro}
+      />
     );
   } else if (etat === "connect") {
     return (
-      <div className='page-container'>
-        <PatientDashboard userId={selectedUserId} listPatients={listPatients} setListPatients={setListPatients} patient={patient} />
+      <div className="page-container">
+        <PatientDashboard
+          userId={selectedUserId}
+          listPatients={listPatients}
+          setListPatients={setListPatients}
+          patient={patient}
+        />
       </div>
     );
-  }else if (etat === "careteam") {
+  } else if (etat === "careteam") {
     return (
-      <div className='page-container'>
+      <div className="page-container">
         <DoctorDashboard />
       </div>
     );

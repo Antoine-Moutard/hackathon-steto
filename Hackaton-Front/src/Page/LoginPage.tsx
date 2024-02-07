@@ -3,6 +3,7 @@ import { Patient } from "../Interface/Patient";
 import { Nurse } from "../Interface/Nurse";
 import { Pro } from "../Interface/Pro";
 
+
 type LoginPageProps = {
   setEtat: React.Dispatch<React.SetStateAction<string>>;
   onUserSelect: (userId: number) => void;
@@ -59,8 +60,10 @@ export const LoginPage = ({
       }
     };
 
+
     fetchPatients();
   }, []);
+
 
   useEffect(() => {
     // Fonction pour charger les données des patients
@@ -91,7 +94,6 @@ export const LoginPage = ({
 
     fetchNurse();
   }, []);
-
   return (
     <div>
       <table>

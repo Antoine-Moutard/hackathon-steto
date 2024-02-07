@@ -43,7 +43,7 @@ const PatientDashboard = ({ patient }: PatientProps) => {
                 </div>
                 <span>Chat</span>
             </button>
-            {isChatboxVisible && <ChatBox />} {/* Affichez la chatbox si isChatboxVisible est vrai */}
+            {isChatboxVisible && <ChatBox patient={patient}/>} {/* Affichez la chatbox si isChatboxVisible est vrai */}
         </div>
     );
 };

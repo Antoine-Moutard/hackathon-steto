@@ -3,6 +3,7 @@ import { Message } from "../Interface/Message";
 import { Patient } from "../Interface/Patient";
 
 
+
 type ChatBoxComponentProps = {
   patient : Patient
 }
@@ -16,6 +17,7 @@ const ChatBox = ({patient}: ChatBoxComponentProps) => {
   const closeChatbox = () => {
     setIsChatboxOpen(false);
   };
+
 
   function sendMessage(){
     console.log(inputValue)
@@ -74,7 +76,7 @@ const ChatBox = ({patient}: ChatBoxComponentProps) => {
           {/* </p> */}
         </div>
         <div className="absolute inset-x-0 bottom-2 w-11/12 ml-5">
-          <form className="flex" onSubmit={(event) => event.preventDefault()}>
+          <form className="flex" onSubmit={sendMessage}>
             <input
               id="messageInput"
               className="flex-1 p-2 border rounded-l-lg"

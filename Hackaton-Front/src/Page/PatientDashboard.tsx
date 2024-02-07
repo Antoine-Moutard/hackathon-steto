@@ -13,6 +13,7 @@ type PatientProps = {
 };
 
 const PatientDashboard = ({ patient }: PatientProps) => {
+
   const [isChatboxVisible, setIsChatboxVisible] = useState(false);
 
   const toggleChatbox = () => {

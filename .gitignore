@@ -13,9 +13,9 @@ Editor directories and files
 !.vscode/extensions.json
 .idea/
 .env
-Hackathon-Back/dist/
+/Hackathon-Back/dist/
 .idea/workspace.xml
-Hackaton-Front/node_modules/
+/Hackaton-Front/node_modules/
 dist-ssr
 .local
 .DS_Store
@@ -24,3 +24,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+Hackathon-Back/dist/routes.js

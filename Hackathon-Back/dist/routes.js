@@ -99,6 +99,7 @@ router.get("/api/getNurses", (req, res) => __awaiter(void 0, void 0, void 0, fun
 //   }
 // });
 router.post("/api/sendMessage", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(req);
     try {
         // Récupérez les données du message à partir du corps de la requête
         const { senderId, messageContent, careTeamId } = req.body;

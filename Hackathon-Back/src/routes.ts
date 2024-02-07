@@ -109,6 +109,7 @@ router.get("/api/getNurses", async (req, res) => {
 
 
 router.post("/api/sendMessage", async (req, res) => {
+  console.log(req)
     try {
     // Récupérez les données du message à partir du corps de la requête
     const { senderId, messageContent, careTeamId } = req.body;

@@ -11,7 +11,7 @@ type ChatBoxComponentProps = {
 
 const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
   const [isChatboxOpen, setIsChatboxOpen] = useState(true);
-  const [message, setMessage] = useState<Message>({careTeamId: "", senderId: patient, content: "", createdAt: "",messageType:""});
+  const [message, setMessage] = useState<Message>({careTeamId: "", senderId: patient, content: "",messageType:""});
   const [listMessage, setListMessage] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState<string>("")
   const [isFilterMessages, setIsFilterMessages] = useState(false);
@@ -21,15 +21,36 @@ const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
   // };
 
 
-  function sendMessage(){
-    console.log(inputValue)
-    let newMessage = {careTeamId: "1", senderId: patient, content: inputValue, createdAt: "18/20/06",messageType:"Tous"}
-    console.log(inputValue)
-    setMessage(newMessage)
-    let newListMessage = listMessage
-    newListMessage.push(newMessage)
-    setListMessage(newListMessage)
-    
+  function sendMessage(e: any){
+      // console.log(inputValue)
+      let newMessage = {careTeamId: "1", senderId: patient, content: inputValue, messageType:"Groupe"}
+      // console.log(inputValue)
+      setMessage(newMessage)
+      let newListMessage = listMessage
+      newListMessage.push(newMessage)
+      setListMessage(newListMessage)
+
+      saveMessage(e, newMessage.content)
+      setInputValue("")
+  };
+
+  const saveMessage = async (e: any, content: string) => {  
+    console.log("je rentre ")
+    console.log(patient)  
+    e.preventDefault();
+      try {
+          const response = await fetch('http://localhost:3000/api/sendMessage', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ senderId: patient.id, careTeamId: patient.careTeamId, messageContent: content }),
+          });
+  
+          // ...gestion de la réponse
+      } catch (error) {
+          console.error("Erreur lors de l'envoi du message:", error);
+      }
   }
 
   return (
@@ -85,12 +106,13 @@ const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
               className="flex-1 p-2 border rounded-l-lg"
               type="text"
               placeholder="Écrire un message..."
+              value={inputValue}
               onChange={(event) =>setInputValue(event.target.value) }
             />
             <button
               className="bg-blue-950 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-r-lg"
               type="submit"
-              onClick={() => sendMessage()}
+              onClick={(event) => sendMessage(event)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

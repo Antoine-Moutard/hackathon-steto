@@ -4,6 +4,6 @@ export interface Message {
     careTeamId: string;
     senderId: Patient;
     content: string;
-    createdAt: string;
+    // createdAt: string;
     messageType:string
 }

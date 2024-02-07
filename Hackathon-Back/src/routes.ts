@@ -117,7 +117,6 @@ router.post("/api/sendMessage", async (req, res) => {
     const connection = await db();
 
     // Prepares and executes the query
-    // const sql = "INSERT INTO message (senderId, content) VALUES (?, ?)";
     const sql =
       "INSERT INTO message (senderId, careTeamId, content, createdAt) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
 
@@ -139,12 +138,12 @@ router.post("/api/sendMessage", async (req, res) => {
  * @param req - The request object.
  * @param res - The response object.
  */
-router.post("/api/getMessageByCareTeamId", async (req, res) => {
+router.post("/api/getMessageByPatientId", async (req, res) => {
   try {
     // Retrieves the message data from the request body
-    const { careTeamId } = req.body;
+    const { patientId } = req.body;
 
-    if (!careTeamId) {
+    if (!patientId) {
       return res
         .status(400)
         .json({ message: "Missing data to send the message" });
@@ -154,10 +153,10 @@ router.post("/api/getMessageByCareTeamId", async (req, res) => {
     const connection = await db();
 
     // Prepares and executes the query
-    // const sql = "INSERT INTO message (senderId, content) VALUES (?, ?)";
-    const sql = "SELECT * FROM MESSAGE Where careTeamId = ?";
 
-    await connection.query(sql, [careTeamId]);
+    const sql = "SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id LEFT JOIN practitioner pr ON m.senderId = pr.id LEFT JOIN patient p ON m.senderId = p.id WHERE c.subjectId = ?";
+
+    await connection.query(sql, [patientId]);
 
     // Closes the connection
     await connection.end();

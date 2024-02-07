@@ -53,6 +53,27 @@ const ChatBoxComponent = ({patient, toggleChatBox}: ChatBoxComponentProps) => {
       }
   }
 
+
+
+  const getMessage = async (e: any, content: string) => {  
+    console.log(patient)  
+    e.preventDefault();
+      try {
+          const response = await fetch('http://localhost:3000/api/sendMessage', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ senderId: patient.id, careTeamId: patient.careTeamId, messageContent: content }),
+          });
+  
+          // ...gestion de la réponse
+      } catch (error) {
+          console.error("Erreur lors de l'envoi du message:", error);
+      }
+  }
+
+
   return (
     <div className="bg-slate-100 p-6 rounded-tl-3xl shadow-md fixed top-0 right-0 h-full w-1/4">
       <div className="flex justify-between items-center mb-4">

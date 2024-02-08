@@ -21,7 +21,6 @@ const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
             password: process.env.DB_PASSWORD,
             database: process.env.DB_NAME,
         });
-        console.log("MySQL Connected");
         return connection;
     }
     catch (error) {

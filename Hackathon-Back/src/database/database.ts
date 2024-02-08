@@ -8,8 +8,6 @@ const connectDB = async () => {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
     });
-
-    console.log("MySQL Connected");
     return connection;
   } catch (error) {
     console.error("MySQL Connection Failed", error);

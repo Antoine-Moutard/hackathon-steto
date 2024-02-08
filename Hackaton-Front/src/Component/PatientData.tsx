@@ -63,6 +63,8 @@ const PatientData = ({
       const response = await fetch(
         "http://localhost:3000/api/getProMessageByPractitionerId/'" +
           pro.id +
+          "'/'" +
+          patient.id +
           "'",
         {
           method: "GET",

@@ -8,7 +8,7 @@ import { Pro } from "../Interface/Pro";
 
 type PatientDataProps = {
   patient: Patient;
-  onBack: () => void; // Pour permettre de retourner à la liste des patients
+  onBack: () => void;
   listMessage: Message[];
   setListMessage: React.Dispatch<React.SetStateAction<Message[]>>;
   pro: Pro;
@@ -31,31 +31,29 @@ const PatientData = ({
   };
 
   useEffect(() => {
-    console.log("je me lance")
+    console.log("je me lance");
     getListMessage();
     getListMessagePro();
-  }, listMessage)
+  }, listMessage);
 
   const getListMessage = async () => {
     try {
       console.log("Je rentre dans la récupération 2");
       const response = await fetch(
         "http://localhost:3000/api/getAllMessageByPractitionerId/'" +
-          pro.id +"'/'" +patient.id +"'",
+          pro.id +
+          "'/'" +
+          patient.id +
+          "'",
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-
-          // body: JSON.stringify({ careTeamId: patient.id}),
         }
       );
       const data: Message[] = await response.json();
-      console.log("deux a la suite ");
-      console.log(data);
       setListMessage(data);
-      // ...gestion de la réponse
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);
     }
@@ -75,21 +73,14 @@ const PatientData = ({
           headers: {
             "Content-Type": "application/json",
           },
-
-          // body: JSON.stringify({ careTeamId: patient.id}),
         }
       );
       const data: Message[] = await response.json();
-      console.log("deux a la suite ");
-      console.log(data);
       setListMessagePro(data);
-      // ...gestion de la réponse
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);
     }
-  }
-
-
+  };
 
   return (
     <div className="ml-5 mt-5 space-y-2">

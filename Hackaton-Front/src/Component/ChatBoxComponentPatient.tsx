@@ -27,7 +27,6 @@ const ChatBoxComponentPatient = ({
   let newListMessage = listMessage;
 
   function sendMessage(e: any) {
-    console.log(listMessage);
     let newMessage = {
       id: null,
       message_content: inputValue,
@@ -45,8 +44,6 @@ const ChatBoxComponentPatient = ({
   }
 
   const saveMessage = async (e: any, content: string) => {
-    console.log("je rentre ");
-    console.log(patient);
     e.preventDefault();
     try {
       const response = await fetch("http://localhost:3000/api/sendMessage", {
@@ -60,8 +57,6 @@ const ChatBoxComponentPatient = ({
           messageContent: content,
         }),
       });
-
-      // ...gestion de la réponse
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);
     }

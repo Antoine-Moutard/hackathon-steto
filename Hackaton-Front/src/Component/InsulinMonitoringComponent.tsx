@@ -40,7 +40,6 @@ const InsulinMonitoring = () => {
           style={{ width: "0%" }}
         ></div>
       </div>
-      {/* Ajoutez ici les composants graphiques ou statistiques supplémentaires pour l'insuline */}
     </section>
   );
 };

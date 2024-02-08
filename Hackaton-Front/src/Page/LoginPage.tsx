@@ -112,61 +112,98 @@ export const LoginPage = ({setEtat, onUserSelect,  setListPatients, listPatients
     fetchNurse();
   }, []);
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Prénom</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listPatients.map((patient, index) => (
-            <tr key={index} onClick={() => handlePatientClick(patient)}>
-              <td>{patient.firstname}</td>
-              <td>{patient.lastname}</td>
-              <td>{patient.email}</td>
+    <div className="content-center">
+      <div>
+        <h1>Liste des patients :</h1>
+        <table className="w-2/4 text-center">
+          <thead>
+            <tr>
+              <th>Prénom</th>
+              <th>Nom</th>
+              <th>Adresse e-mail</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Prénom</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Metier</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listPros.map((pro, index) => (
-            <tr key={index} onClick={() => handleProClick(pro)}>
-              <th scope="row">{pro.firstname}</th>
-              <td>{pro.lastname}</td>
-              <td>{pro.role}</td>
+          </thead>
+          <tbody>
+            {listPatients.map((patient, index) => (
+              <tr key={index}>
+                <td>{patient.firstname}</td>
+                <td>{patient.lastname}</td>
+                <td>{patient.email}</td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() => handlePatientClick(patient)}
+                    className="bg-green-500 hover:bg-green-400 text-white font-bold px-4 py-2 rounded-lg"
+                  >
+                    <span>Connexion</span>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <h1>Liste des docteurs :</h1>
+        <table className="w-2/4 text-center">
+          <thead>
+            <tr>
+              <th>Prénom</th>
+              <th>Nom</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Prénom</th>
-            <th scope="col">Nom</th>
-            <th scope="col">Metier</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listNurses.map((nurse, index) => (
-            <tr key={index} onClick={() => handleNurseClick(nurse)}>
-              <th scope="row">{nurse.firstname}</th>
-              <td>{nurse.lastname}</td>
-              <td>{nurse.role}</td>
+          </thead>
+          <tbody>
+            {listPros.map((docteur, index) => (
+              <tr key={index}>
+                <td>{docteur.firstname}</td>
+                <td>{docteur.lastname}</td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() => handleProClick(docteur)}
+                    className="bg-green-500 hover:bg-green-400 text-white font-bold px-4 py-2 rounded-lg"
+                  >
+                    <span>Connexion</span>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <h1>Liste des infirmier(e)s :</h1>
+        <table className="w-2/4 text-center">
+          <thead>
+            <tr>
+              <th>Prénom</th>
+              <th>Nom</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {listNurses.map((nurse, index) => (
+              <tr key={index}>
+                <td>{nurse.firstname}</td>
+                <td>{nurse.lastname}</td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() => handleProClick(nurse)}
+                    className="bg-green-500 hover:bg-green-400 text-white font-bold px-4 py-2 rounded-lg"
+                  >
+                    <span>Connexion</span>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

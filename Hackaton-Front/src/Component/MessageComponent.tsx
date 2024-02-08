@@ -41,7 +41,7 @@ export const MessageComponent = ({
           key={message.id}
           className="max-w-80 bg-gray-200 rounded-r-2xl px-4 py-1 relative space-y-2"
         >
-          <h1 className="font-bold text-blue-950">Dr. {message.sender_name}</h1>
+          <h1 className="font-bold text-blue-950">{message.sender_name}</h1>
           <p className="font-bold">{message.message_content}</p>
           <div className="flex space-x-2">
             <p>{getDate(message.message_date)}</p>

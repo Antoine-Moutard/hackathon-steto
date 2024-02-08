@@ -53,7 +53,7 @@ router.get("/api/getDoctors", async (req, res) => {
 
     // Executes the query
     const [users] = await connection.query(
-      "SELECT practitioner.id, practitioner.firstname, practitioner.lastname FROM `practitioner` join careteamparticipant on practitioner.id = careteamparticipant.memberId where role = 'doctor'"
+      "SELECT DISTINCT practitioner.id, practitioner.firstname, practitioner.lastname FROM `practitioner` join careteamparticipant on practitioner.id = careteamparticipant.memberId where role = 'doctor'"
     );
 
     // Closes the connection
@@ -81,7 +81,7 @@ router.get("/api/getNurses", async (req, res) => {
 
     // Executes the query
     const [users] = await connection.query(
-      "SELECT practitioner.id, practitioner.firstname, practitioner.lastname FROM `practitioner` join careteamparticipant on practitioner.id = careteamparticipant.memberId where role = 'nurse'"
+      "SELECT DISTINCT practitioner.id, practitioner.firstname, practitioner.lastname FROM `practitioner` join careteamparticipant on practitioner.id = careteamparticipant.memberId where role = 'nurse'"
     );
 
     // Closes the connection

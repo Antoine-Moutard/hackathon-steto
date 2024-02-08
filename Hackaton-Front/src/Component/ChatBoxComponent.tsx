@@ -1,30 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Message } from "../Interface/Message";
 import { Patient } from "../Interface/Patient";
+import {MessageComponent} from "../Component/Message.tsx"
 
 
 type ChatBoxComponentProps = {
   patient : Patient
+  toggleChatBox: () => void
+  listMessage: Message[],
+  setListMessage: React.Dispatch<React.SetStateAction<Message[]>> 
 }
 
-const ChatBox = ({patient}: ChatBoxComponentProps) => {
+const ChatBoxComponent = ({patient, toggleChatBox, listMessage, setListMessage}: ChatBoxComponentProps) => {
   const [isChatboxOpen, setIsChatboxOpen] = useState(true);
-  const [message, setMessage] = useState<Message>({careTeamId: "", senderId: patient, content: "", createdAt: "",messageType:""});
-  const [listMessage, setListMessage] = useState<Message[]>([])
+  const [message, setMessage] = useState<Message>({id: null, message_content: null, message_date: null, sender_name: null});
+  
   const [inputValue, setInputValue] = useState<string>("")
+  const [isFilterMessages, setIsFilterMessages] = useState(false);
+  let newListMessage = listMessage
 
   const closeChatbox = () => {
     setIsChatboxOpen(false);
   };
 
-  function sendMessage(){
-    console.log(inputValue)
-    let newMessage = {careTeamId: "1", senderId: patient, content: inputValue, createdAt: "18/20/06",messageType:"Tous"}
-    console.log(inputValue)
-    setMessage(newMessage)
-    let newListMessage = listMessage
-    newListMessage.push(newMessage)
-    setListMessage(newListMessage)
+
+  function sendMessage(e: any){
+      console.log(listMessage)
+      let newMessage = {id: null, message_content: inputValue, message_date: null,  sender_name: patient.firstname + patient.lastname}
+      setMessage(newMessage)
+      
+      console.log(newMessage)
+      newListMessage.push(newMessage)
+      setListMessage(newListMessage)
+
+      saveMessage(e, newMessage.message_content)
+      setInputValue("")
+  };
+
+  const saveMessage = async (e: any, content: string) => {  
+    console.log("je rentre ")
+    console.log(patient)  
+    e.preventDefault();
+      try {
+          const response = await fetch('http://localhost:3000/api/sendMessage', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ senderId: patient.id, careTeamId: patient.careTeamId, messageContent: content }),
+          });
+  
+          // ...gestion de la réponse
+      } catch (error) {
+          console.error("Erreur lors de l'envoi du message:", error);
+      }
   }
 
   return (
@@ -32,7 +61,7 @@ const ChatBox = ({patient}: ChatBoxComponentProps) => {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Messagerie</h2>
         <button
-          onClick={props.toggleChatbox}
+          onClick={toggleChatBox}
           className="hover:bg-blue-200 p-2 rounded-full"
         >
           <svg
@@ -68,11 +97,7 @@ const ChatBox = ({patient}: ChatBoxComponentProps) => {
       </div>
 
       <div className="flex flex-col h-full">        
-        <div>
-          {/* <p> */}
-            {listMessage.map((message) => <p key={"a"}>{message.senderId.firstname} {message.senderId.lastname} : {message.content}</p>)}
-          {/* </p> */}
-        </div>
+        <MessageComponent listMessage={listMessage}/>
         <div className="absolute inset-x-0 bottom-2 w-11/12 ml-5">
           <form className="flex" onSubmit={(event) => event.preventDefault()}>
             <input
@@ -80,12 +105,13 @@ const ChatBox = ({patient}: ChatBoxComponentProps) => {
               className="flex-1 p-2 border rounded-l-lg"
               type="text"
               placeholder="Écrire un message..."
+              value={inputValue}
               onChange={(event) =>setInputValue(event.target.value) }
             />
             <button
               className="bg-blue-950 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-r-lg"
               type="submit"
-              onClick={() => sendMessage()}
+              onClick={(event) => sendMessage(event)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

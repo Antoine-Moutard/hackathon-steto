@@ -1,9 +1,8 @@
 import { Patient } from "./Patient";
 
 export interface Message {
-    careTeamId: string;
-    senderId: Patient;
-    content: string;
-    createdAt: string;
-    messageType:string
+    id:number |null,
+    message_content: string |null,
+    message_date:string|null,
+    sender_name:string|null
 }

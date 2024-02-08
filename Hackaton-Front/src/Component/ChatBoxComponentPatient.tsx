@@ -10,13 +10,19 @@ type ChatBoxComponentProps = {
   setListMessage: React.Dispatch<React.SetStateAction<Message[]>>;
 };
 
-const ChatBoxComponentPatient = ({patient, toggleChatBox, listMessage, setListMessage}: ChatBoxComponentProps) => {
+const ChatBoxComponentPatient = ({
+  patient,
+  toggleChatBox,
+  listMessage,
+  setListMessage,
+}: ChatBoxComponentProps) => {
   const [isChatboxOpen, setIsChatboxOpen] = useState(true);
-  const [message, setMessage] = useState<Message>({id: null, message_content: null, message_date: null, sender_name: null});
-  const [inputValue, setInputValue] = useState<string>("")
-  const [isFilterMessages, setIsFilterMessages] = useState(false);
-  let newListMessage = listMessage
-
+  const [message, setMessage] = useState<Message>({
+    id: null,
+    message_content: null,
+    message_date: null,
+    sender_name: null,
+  });
   const [inputValue, setInputValue] = useState<string>("");
   let newListMessage = listMessage;
 
@@ -65,14 +71,20 @@ const ChatBoxComponentPatient = ({patient, toggleChatBox, listMessage, setListMe
     <div className="bg-slate-100 p-6 rounded-tl-3xl shadow-md fixed top-0 right-0 h-full w-1/4">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">Messagerie</h2>
+        <button
+          onClick={toggleChatBox}
+          className="hover:bg-blue-200 p-2 rounded-full text-2xl px-3"
+        >
+          <i className="bi bi-x-lg"></i>
+        </button>
       </div>
 
-      <MessageComponent listMessage={listMessage} />
+      <MessageComponent listMessage={listMessage} patient={patient} />
 
       <div className="w-11/12 h-auto absolute bottom-4 border-2 border-gray-500 rounded-2xl p-4">
         <div className="space-x-2 space-y-2 text-sm">
           <textarea
-            className="w-96 p-4 rounded-2xl h-32 resize-none"
+            className="w-full p-4 rounded-2xl h-32 resize-none"
             placeholder="Écrire un message..."
             value={inputValue}
             onChange={(event) => setInputValue(event.target.value)}

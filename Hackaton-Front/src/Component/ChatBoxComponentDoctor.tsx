@@ -12,9 +12,11 @@ type ChatBoxComponentProps = {
   setListMessage: React.Dispatch<React.SetStateAction<Message[]>>
   pro: Pro
   setPro:React.Dispatch<React.SetStateAction<Pro>>
+  listMessagePro: Message[]
+  setListMessagePro:React.Dispatch<React.SetStateAction<Message[]>>
 }
 
-const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMessage,pro}: ChatBoxComponentProps) => {
+const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMessage,pro, listMessagePro, setListMessagePro}: ChatBoxComponentProps) => {
   const [isChatboxOpen, setIsChatboxOpen] = useState(true);
   const [message, setMessage] = useState<Message>({id: null, message_content: null, message_date: null, sender_name: null});
   
@@ -99,8 +101,9 @@ const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMes
         </button>
       </div>
 
-      <div className="flex flex-col h-full">        
-        <MessageComponent listMessage={listMessage}/>
+      <div className="flex flex-col h-full">  
+        {isFilterMessages ? <MessageComponent listMessage={listMessagePro}/>: <MessageComponent listMessage={listMessage}/>}      
+        {/* <MessageComponent listMessage={listMessage}/> */}
         <div className="absolute inset-x-0 bottom-2 w-11/12 ml-5">
           <form className="flex" onSubmit={(event) => event.preventDefault()}>
             <input

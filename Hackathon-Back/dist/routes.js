@@ -34,7 +34,7 @@ router.get("/api/getPatients", (req, res) => __awaiter(void 0, void 0, void 0, f
         // Establishes a connection
         const connection = yield (0, database_1.default)();
         // Executes the query
-        const [users] = yield connection.query("SELECT patient.id, patient.firstname, patient.lastname, patient.email, careteam.id as careTeamId FROM patient JOIN careteam ON patient.id = careteam.subjectId");
+        const [users] = yield connection.query("SELECT patient.id, patient.firstname, patient.lastname, patient.email, careteam.id as careteamId FROM patient JOIN careteam ON patient.id = careteam.subjectId");
         // Closes the connection
         yield connection.end();
         // Sends the response
@@ -150,17 +150,18 @@ router.get("/api/getMessageByPatientId/:id", (req, res) => __awaiter(void 0, voi
             .json({ message: "Error fetching users" });
     }
 }));
-router.get("/api/getAllMessageByPractitionerId/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/getAllMessageByPractitionerId/:id/:idPat", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // console.log(req.params.idPat)
     try {
         // Establishes a connection
         const connection = yield (0, database_1.default)();
-        if (!req.params.id) {
+        if (!req.params.id || !req.params.idPat) {
             return res
                 .status(400)
                 .json({ message: "Missing data to send the message" });
         }
         // Executes the query
-        const [messages] = yield connection.query("SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " ORDER BY m.createdAt ASC ");
+        const [messages] = yield connection.query("SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " AND c.subjectId = " + [req.params.idPat] + " ORDER BY m.createdAt ASC ");
         // Closes the connection
         yield connection.end();
         // Sends the response
@@ -173,17 +174,17 @@ router.get("/api/getAllMessageByPractitionerId/:id", (req, res) => __awaiter(voi
             .json({ message: "Error fetching messages" });
     }
 }));
-router.get("/api/getProMessageByPractitionerId/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/getProMessageByPractitionerId/:id/:idPat", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Establishes a connection
         const connection = yield (0, database_1.default)();
-        if (!req.params.id) {
+        if (!req.params.id || !req.params.idPat) {
             return res
                 .status(400)
                 .json({ message: "Missing data to send the message" });
         }
         // Executes the query
-        const [messages] = yield connection.query("SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " AND m.messageType = 'Pro' ORDER BY m.createdAt ASC ");
+        const [messages] = yield connection.query("SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " AND m.messageType = 'Pro' AND c.subjectId = " + [req.params.idPat] + " ORDER BY m.createdAt ASC ");
         // Closes the connection
         yield connection.end();
         // Sends the response

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Message } from "../Interface/Message.tsx";
 import { Patient } from "../Interface/Patient.tsx";
-import {MessageComponent} from "./Message.tsx"
+import {MessageComponent} from "./MessageComponent.tsx"
 import { Pro } from "../Interface/Pro.tsx";
 
 

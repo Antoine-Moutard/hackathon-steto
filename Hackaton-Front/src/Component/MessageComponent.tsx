@@ -6,7 +6,7 @@ interface MessageProps {
 
 export const MessageComponent = ({ listMessage }: MessageProps) => {
     return (
-        <div className="flex flex-col p-4">
+        <div className="flex flex-col p-4 overflow-auto">
             {listMessage.map((mess) => (
                 <div
                     key={mess.id}

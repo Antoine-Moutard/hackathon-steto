@@ -50,7 +50,7 @@ function App() {
   } else if (etat === "careteam") {
     return (
       <div className="page-container">
-        <DoctorDashboard listPatients={listPatients} listMessage={listMessage} setListMessage={setListMessage}/>
+        <DoctorDashboard listPatients={listPatients} listMessage={listMessage} setListMessage={setListMessage} pro={pro} setPro={setPro}/>
       </div>
     );
   }

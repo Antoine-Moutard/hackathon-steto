@@ -3,9 +3,9 @@ import InsulinMonitoring from "../Component/InsulinMonitoringComponent";
 import "tailwindcss/tailwind.css";
 import { useState } from "react";
 import { Patient } from "../Interface/Patient";
-import  ChatBoxComponent  from "../Component/ChatBoxComponent";
 import { Message } from "../Interface/Message";
 import NavBarLaterale from "../Component/NavBarLaterale";
+import ChatBoxComponentPatient from "../Component/ChatBoxComponentPatient";
 
 type PatientProps = {
   userId: number | null;
@@ -44,7 +44,7 @@ const PatientDashboard = ({ patient,listMessage, setListMessage }: PatientProps)
           // ...gestion de la réponse
       } catch (error) {
           console.error("Erreur lors de l'envoi du message:", error);
-      }
+      } 
   }
 
   return (
@@ -72,7 +72,7 @@ const PatientDashboard = ({ patient,listMessage, setListMessage }: PatientProps)
         <i className="bi bi-envelope text-xl"></i>
         <span>Messagerie</span>
       </button>
-      {isChatboxVisible && <ChatBoxComponent patient={patient} toggleChatBox={toggleChatbox} listMessage={listMessage} setListMessage={setListMessage} />}    </div>
+      {isChatboxVisible && <ChatBoxComponentPatient patient={patient} toggleChatBox={toggleChatbox} listMessage={listMessage} setListMessage={setListMessage} />}    </div>
   );
 };
 

@@ -2,22 +2,47 @@ import { useState } from "react";
 import BloodGlucoseMonitoring from "../Component/BloodMonitoringComponent";
 import InsulinMonitoring from "../Component/InsulinMonitoringComponent";
 import { Patient } from "../Interface/Patient";
-import ChatBoxComponent from "../Component/ChatBoxComponent";
+import ChatBoxComponent from "./ChatBoxComponentPatient";
 import { Message } from "../Interface/Message";
+import ChatBoxComponentDoctor from "./ChatBoxComponentDoctor";
+import { Pro } from "../Interface/Pro";
 
 type PatientDataProps = {
   patient: Patient;
   onBack: () => void; // Pour permettre de retourner à la liste des patients
   listMessage: Message[],
-  setListMessage:React.Dispatch<React.SetStateAction<Message[]>>
+  setListMessage:React.Dispatch<React.SetStateAction<Message[]>>,
+  pro: Pro,
+  setPro:React.Dispatch<React.SetStateAction<Pro>>
 };
 
-const PatientData = ({ patient, onBack,listMessage, setListMessage }: PatientDataProps) => {
+const PatientData = ({ patient, onBack,listMessage, setListMessage, pro, setPro }: PatientDataProps) => {
   const [isChatboxVisible, setIsChatboxVisible] = useState(false);
 
   const toggleChatbox = () => {
     setIsChatboxVisible(!isChatboxVisible);
+    getListMessage
   };
+
+  const getListMessage = async () => {  
+    try {
+      console.log("Je rentre dans la récupération")
+        const response = await fetch("http://localhost:3000/api/getMessageByPatientId/'" + patient.id +"'", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            
+            // body: JSON.stringify({ careTeamId: patient.id}),
+        });
+        const data: Message[] = await response.json();
+        console.log(data)
+        setListMessage(data);
+        // ...gestion de la réponse
+    } catch (error) {
+        console.error("Erreur lors de l'envoi du message:", error);
+    }
+}
 
   return (
     <div className="ml-5 mt-5 space-y-2">
@@ -48,7 +73,7 @@ const PatientData = ({ patient, onBack,listMessage, setListMessage }: PatientDat
           <span>Messagerie</span>
         </button>
         {/* {isChatboxVisible && <ChatBoxComponent toggleChatbox={toggleChatbox} />} */}
-        {isChatboxVisible && <ChatBoxComponent patient={patient} toggleChatBox={toggleChatbox} listMessage={listMessage} setListMessage={setListMessage} />}
+        {isChatboxVisible && <ChatBoxComponentDoctor patient={patient} toggleChatBox={toggleChatbox} listMessage={listMessage} setListMessage={setListMessage} pro={pro} setPro={setPro}/>}
       </div>
     </div>
   );

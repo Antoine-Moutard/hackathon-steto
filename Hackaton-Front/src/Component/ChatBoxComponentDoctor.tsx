@@ -1,17 +1,20 @@
-import { useEffect, useState } from "react";
-import { Message } from "../Interface/Message";
-import { Patient } from "../Interface/Patient";
-import {MessageComponent} from "../Component/Message.tsx"
+import { useState } from "react";
+import { Message } from "../Interface/Message.tsx";
+import { Patient } from "../Interface/Patient.tsx";
+import {MessageComponent} from "./Message.tsx"
+import { Pro } from "../Interface/Pro.tsx";
 
 
 type ChatBoxComponentProps = {
   patient : Patient
   toggleChatBox: () => void
   listMessage: Message[],
-  setListMessage: React.Dispatch<React.SetStateAction<Message[]>> 
+  setListMessage: React.Dispatch<React.SetStateAction<Message[]>>
+  pro: Pro
+  setPro:React.Dispatch<React.SetStateAction<Pro>>
 }
 
-const ChatBoxComponent = ({patient, toggleChatBox, listMessage, setListMessage}: ChatBoxComponentProps) => {
+const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMessage,pro}: ChatBoxComponentProps) => {
   const [isChatboxOpen, setIsChatboxOpen] = useState(true);
   const [message, setMessage] = useState<Message>({id: null, message_content: null, message_date: null, sender_name: null});
   
@@ -19,14 +22,14 @@ const ChatBoxComponent = ({patient, toggleChatBox, listMessage, setListMessage}:
   const [isFilterMessages, setIsFilterMessages] = useState(false);
   let newListMessage = listMessage
 
-  const closeChatbox = () => {
-    setIsChatboxOpen(false);
-  };
+//   const closeChatbox = () => {
+//     setIsChatboxOpen(false);
+//   };
 
 
   function sendMessage(e: any){
       console.log(listMessage)
-      let newMessage = {id: null, message_content: inputValue, message_date: null,  sender_name: patient.firstname + patient.lastname}
+      let newMessage = {id: null, message_content: inputValue, message_date: null,  sender_name: pro.firstname + pro.lastname}
       setMessage(newMessage)
       
       console.log(newMessage)
@@ -38,8 +41,8 @@ const ChatBoxComponent = ({patient, toggleChatBox, listMessage, setListMessage}:
   };
 
   const saveMessage = async (e: any, content: string) => {  
-    console.log("je rentre ")
-    console.log(patient)  
+    // console.log("je rentre ")
+    // console.log(patient)  
     e.preventDefault();
       try {
           const response = await fetch('http://localhost:3000/api/sendMessage', {
@@ -47,7 +50,7 @@ const ChatBoxComponent = ({patient, toggleChatBox, listMessage, setListMessage}:
               headers: {
                   'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ senderId: patient.id, careTeamId: patient.careTeamId, messageContent: content }),
+              body: JSON.stringify({ senderId: pro.id, careTeamId: patient.careTeamId, messageContent: content }),
           });
   
           // ...gestion de la réponse
@@ -131,4 +134,4 @@ const ChatBoxComponent = ({patient, toggleChatBox, listMessage, setListMessage}:
   );
 };
 
-export default ChatBoxComponent;
+export default ChatBoxComponentDoctor;

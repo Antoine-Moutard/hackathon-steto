@@ -1,5 +1,3 @@
-import { Patient } from "./Patient";
-
 export interface Message {
     id:number |null,
     message_content: string |null,

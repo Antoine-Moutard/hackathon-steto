@@ -4,14 +4,17 @@ import { Patient } from "../Interface/Patient";
 import NavBarLaterale from '../Component/NavBarLaterale';
 import PatientData from "../Component/PatientData.tsx";
 import { Message } from '../Interface/Message.tsx';
+import { Pro } from '../Interface/Pro.tsx';
 
 type DoctorDashboardProps = {
   listPatients: Patient[];
   listMessage: Message[],
   setListMessage:React.Dispatch<React.SetStateAction<Message[]>>
+  pro: Pro,
+  setPro:React.Dispatch<React.SetStateAction<Pro>>
 };
 
-export const DoctorDashboard = ({ listPatients, listMessage,setListMessage }: DoctorDashboardProps) => {
+export const DoctorDashboard = ({ listPatients, listMessage,setListMessage, pro, setPro }: DoctorDashboardProps) => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   
   return (
@@ -28,7 +31,7 @@ export const DoctorDashboard = ({ listPatients, listMessage,setListMessage }: Do
                   ))}
                 </div>
             ) : (
-                <PatientData patient={selectedPatient} onBack={() => setSelectedPatient(null)} listMessage={listMessage} setListMessage={setListMessage} />
+                <PatientData patient={selectedPatient} onBack={() => setSelectedPatient(null)} listMessage={listMessage} setListMessage={setListMessage} pro={pro} setPro={setPro}/>
             )}
           </div>
         </div>

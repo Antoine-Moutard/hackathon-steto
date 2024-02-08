@@ -168,13 +168,14 @@ router.get("/api/getMessageByPatientId/:id", async (req, res) => {
 });
 
 
-router.get("/api/getAllMessageByPractitionerId/:id", async (req, res) => {
+router.get("/api/getAllMessageByPractitionerId/:id/:idPat", async (req, res) => {
 
+  // console.log(req.params.idPat)
   try {
     // Establishes a connection
     const connection = await db();
 
-    if (!req.params.id) {
+    if (!req.params.id || !req.params.idPat) {
       return res
         .status(400)
         .json({ message: "Missing data to send the message" });
@@ -182,7 +183,7 @@ router.get("/api/getAllMessageByPractitionerId/:id", async (req, res) => {
 
     // Executes the query
     const [messages] = await connection.query(
-      "SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " ORDER BY m.createdAt ASC ");
+      "SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " AND c.subjectId = "+ [req.params.idPat] +" ORDER BY m.createdAt ASC ");
       // Closes the connection
     await connection.end();
 
@@ -198,13 +199,13 @@ router.get("/api/getAllMessageByPractitionerId/:id", async (req, res) => {
 
 
 
-router.get("/api/getProMessageByPractitionerId/:id", async (req, res) => {
+router.get("/api/getProMessageByPractitionerId/:id/:idPat", async (req, res) => {
 
   try {
     // Establishes a connection
     const connection = await db();
 
-    if (!req.params.id) {
+    if (!req.params.id || !req.params.idPat) {
       return res
         .status(400)
         .json({ message: "Missing data to send the message" });
@@ -212,7 +213,7 @@ router.get("/api/getProMessageByPractitionerId/:id", async (req, res) => {
 
     // Executes the query
     const [messages] = await connection.query(
-      "SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " AND m.messageType = 'Pro' ORDER BY m.createdAt ASC ");
+      "SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " AND m.messageType = 'Pro' AND c.subjectId = "+ [req.params.idPat] +" ORDER BY m.createdAt ASC ");
   
       // Closes the connection
     await connection.end();

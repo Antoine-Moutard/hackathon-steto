@@ -10,18 +10,12 @@ type ChatBoxComponentProps = {
   setListMessage: React.Dispatch<React.SetStateAction<Message[]>>;
 };
 
-const ChatBoxComponentPatient = ({
-  patient,
-  toggleChatBox,
-  listMessage,
-  setListMessage,
-}: ChatBoxComponentProps) => {
-  const [message, setMessage] = useState<Message>({
-    id: null,
-    message_content: null,
-    message_date: null,
-    sender_name: null,
-  });
+const ChatBoxComponentPatient = ({patient, toggleChatBox, listMessage, setListMessage}: ChatBoxComponentProps) => {
+  const [isChatboxOpen, setIsChatboxOpen] = useState(true);
+  const [message, setMessage] = useState<Message>({id: null, message_content: null, message_date: null, sender_name: null});
+  const [inputValue, setInputValue] = useState<string>("")
+  const [isFilterMessages, setIsFilterMessages] = useState(false);
+  let newListMessage = listMessage
 
   const [inputValue, setInputValue] = useState<string>("");
   let newListMessage = listMessage;

@@ -12,9 +12,11 @@ type ChatBoxComponentProps = {
   setListMessage: React.Dispatch<React.SetStateAction<Message[]>>
   pro: Pro
   setPro:React.Dispatch<React.SetStateAction<Pro>>
+  listMessagePro: Message[]
+  setListMessagePro:React.Dispatch<React.SetStateAction<Message[]>>
 }
 
-const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMessage,pro}: ChatBoxComponentProps) => {
+const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMessage,pro, listMessagePro, setListMessagePro}: ChatBoxComponentProps) => {
   const [isChatboxOpen, setIsChatboxOpen] = useState(true);
   const [message, setMessage] = useState<Message>({id: null, message_content: null, message_date: null, sender_name: null});
   
@@ -89,7 +91,7 @@ const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMes
         </button>
       </div>
 
-      <MessageComponent listMessage={listMessage} />
+     {isFilterMessages ? <MessageComponent listMessage={listMessagePro}/>: <MessageComponent listMessage={listMessage}/>}   
 
       <div className="w-11/12 h-auto absolute bottom-4 border-2 border-gray-500 rounded-2xl p-4">
         <div className="space-x-2 space-y-2 text-sm">

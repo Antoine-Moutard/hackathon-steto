@@ -4,14 +4,18 @@ import { Pro } from "../Interface/Pro";
 
 interface MessageProps {
   listMessage: Message[];
-  currentUser: Patient | Pro;
+  currentUser:Patient | Pro
+  // patient: Patient | undefined;
+  // pro: Pro | undefined
 }
 
 export const MessageComponent = (
-  { listMessage }: MessageProps,
-  currentUser: Patient | Pro
+  { listMessage, currentUser }: MessageProps,
+  
 ) => {
   function printMessage(message: Message) {
+  console.log(currentUser.firstname + ' ' + currentUser.lastname + " " +message.sender_name)
+
     if (
       currentUser.firstname + currentUser.lastname == message.sender_name ||
       currentUser.firstname + " " + currentUser.lastname == message.sender_name

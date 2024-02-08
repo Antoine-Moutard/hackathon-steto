@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import "tailwindcss/tailwind.css";
+import { useState } from 'react';
 import { Patient } from "../Interface/Patient";
 import NavBarLaterale from '../Component/NavBarLaterale';
 import PatientData from "../Component/PatientData.tsx";
@@ -24,13 +23,16 @@ export const DoctorDashboard = ({ listPatients, listMessage,setListMessage, pro,
           <NavBarLaterale />
           <div className="flex-1 overflow-y-auto">
             {!selectedPatient ? (
-                <div>
-                  {listPatients.map(patient => (
-                      <div key={patient.id} className="cursor-pointer p-4 hover:bg-gray-100" onClick={() => setSelectedPatient(patient)}>
+                <div className="ml-10 mt-10">
+                <h1 className="text-2xl text-blue-950 font-bold">
+                  Liste des patients :
+                </h1>
+                {listPatients.map(patient => (
+                      <div key={patient.id} className="cursor-pointer p-4 w-screen hover:bg-gray-100" onClick={() => setSelectedPatient(patient)}>
                       {patient.firstname} {patient.lastname}
                     </div>
                   ))}
-                </div>
+              </div>
             ) : (
                 <PatientData patient={selectedPatient} onBack={() => setSelectedPatient(null)} listMessage={listMessage} setListMessage={setListMessage} pro={pro} setPro={setPro}/>
             )}

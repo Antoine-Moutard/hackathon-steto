@@ -4,17 +4,20 @@ import { Pro } from "../Interface/Pro";
 
 interface MessageProps {
   listMessage: Message[];
-  currentUser:Patient | Pro
+  currentUser: Patient | Pro;
   // patient: Patient | undefined;
   // pro: Pro | undefined
 }
 
-export const MessageComponent = (
-  { listMessage, currentUser }: MessageProps,
-  
-) => {
+export const MessageComponent = ({
+  listMessage,
+  currentUser,
+}: MessageProps) => {
+  function getDate(uneDate: any) {
+    return new Date(uneDate).toLocaleTimeString();
+  }
 
-  console.log( listMessage)
+  console.log(listMessage);
   function printMessage(message: Message) {
     // console.log(currentUser.firstname + " " + currentUser.lastname + " " + message.sender_name)
     if (
@@ -28,7 +31,7 @@ export const MessageComponent = (
         >
           <p className="font-bold">{message.message_content}</p>
           <div className=" flex space-x-2">
-            <p>{message.message_date}</p>
+            <p>{getDate(message.message_date)}</p>
           </div>
         </div>
       );
@@ -36,12 +39,12 @@ export const MessageComponent = (
       return (
         <div
           key={message.id}
-          className="max-w-80 bg-gray-300 rounded-r-2xl px-4 py-1 relative space-y-2"
+          className="max-w-80 bg-gray-200 rounded-r-2xl px-4 py-1 relative space-y-2"
         >
-          <h1 className="font-bold text-blue-950">{message.sender_name}</h1>
+          <h1 className="font-bold text-blue-950">Dr. {message.sender_name}</h1>
           <p className="font-bold">{message.message_content}</p>
           <div className="flex space-x-2">
-            <p>{message.message_date}</p>
+            <p>{getDate(message.message_date)}</p>
           </div>
         </div>
       );

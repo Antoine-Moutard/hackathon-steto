@@ -1,6 +1,5 @@
 import BloodGlucoseMonitoring from "../Component/BloodMonitoringComponent";
 import InsulinMonitoring from "../Component/InsulinMonitoringComponent";
-import "tailwindcss/tailwind.css";
 import { useEffect, useState } from "react";
 import { Patient } from "../Interface/Patient";
 import { Message } from "../Interface/Message";

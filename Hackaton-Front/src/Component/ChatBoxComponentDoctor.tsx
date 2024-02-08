@@ -43,8 +43,6 @@ const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMes
   };
 
   const saveMessage = async (e: any, content: string) => {  
-    // console.log("je rentre ")
-    console.log(patient)  
     e.preventDefault();
       try {
           const response = await fetch('http://localhost:3000/api/sendMessage', {
@@ -91,7 +89,7 @@ const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMes
         </button>
       </div>
 
-     {isFilterMessages ? <MessageComponent listMessage={listMessagePro}/>: <MessageComponent listMessage={listMessage}/>}   
+     {isFilterMessages ? <MessageComponent listMessage={listMessagePro} currentUser={pro} />: <MessageComponent listMessage={listMessage} currentUser={pro}/>}   
 
       <div className="w-11/12 h-auto absolute bottom-4 border-2 border-gray-500 rounded-2xl p-4">
         <div className="space-x-2 space-y-2 text-sm">

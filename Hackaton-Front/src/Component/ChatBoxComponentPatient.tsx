@@ -79,7 +79,7 @@ const ChatBoxComponentPatient = ({
         </button>
       </div>
 
-      <MessageComponent listMessage={listMessage} patient={patient} />
+      <MessageComponent listMessage={listMessage} currentUser={patient} />
 
       <div className="w-11/12 h-auto absolute bottom-4 border-2 border-gray-500 rounded-2xl p-4">
         <div className="space-x-2 space-y-2 text-sm">

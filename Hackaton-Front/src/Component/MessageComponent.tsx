@@ -4,7 +4,7 @@ import { Pro } from "../Interface/Pro";
 
 interface MessageProps {
   listMessage: Message[];
-  patient: Patient;
+  currentUser: Patient | Pro;
 }
 
 export const MessageComponent = (

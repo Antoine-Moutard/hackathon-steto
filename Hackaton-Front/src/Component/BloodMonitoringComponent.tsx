@@ -22,9 +22,7 @@ const BloodMonitoring = () => {
             Répartition des glycémies
           </span>
         </div>
-        {/* Insérez ici vos composants de graphique pour la répartition des glycémies */}
         <div className="mt-2">
-          {/* Exemple de barre pour les plages de glycémie */}
           <div className="flex justify-between mb-1">
             <span className="text-xs font-medium text-gray-700">
               &gt;250 mg/dL
@@ -37,7 +35,6 @@ const BloodMonitoring = () => {
               style={{ width: "0%" }}
             ></div>
           </div>
-          {/* Répétez pour chaque plage de glycémie */}
         </div>
       </div>
     </section>

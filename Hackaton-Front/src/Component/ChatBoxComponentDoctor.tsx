@@ -63,25 +63,15 @@ const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMes
 
   return (
     <div className="bg-slate-100 p-6 rounded-tl-3xl shadow-md fixed top-0 right-0 h-full w-1/4">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">Messagerie</h2>
         <button
           onClick={toggleChatBox}
-          className="hover:bg-blue-200 p-2 rounded-full"
+          className="hover:bg-blue-200 p-2 rounded-full text-2xl px-3"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            fill="currentColor"
-            className="bi bi-x-lg"
-            viewBox="0 0 16 16"
-          >
-            <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
-          </svg>
+          <i className="bi bi-x-lg"></i>
         </button>
       </div>
-
       <div className="space-x-2">
         <button
           onClick={() => setIsFilterMessages(false)}
@@ -101,36 +91,33 @@ const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMes
         </button>
       </div>
 
-      <div className="flex flex-col h-full">  
-        {isFilterMessages ? <MessageComponent listMessage={listMessagePro}/>: <MessageComponent listMessage={listMessage}/>}      
-        {/* <MessageComponent listMessage={listMessage}/> */}
-        <div className="absolute inset-x-0 bottom-2 w-11/12 ml-5">
-          <form className="flex" onSubmit={(event) => event.preventDefault()}>
-            <input
-              id="messageInput"
-              className="flex-1 p-2 border rounded-l-lg"
-              type="text"
-              placeholder="Écrire un message..."
-              value={inputValue}
-              onChange={(event) =>setInputValue(event.target.value) }
-            />
-            <button
-              className="bg-blue-950 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded-r-lg"
-              type="submit"
-              onClick={(event) => sendMessage(event)}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                className="bi bi-send"
-                viewBox="0 0 16 16"
-              >
-                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76z" />
-              </svg>
-            </button>
-          </form>
+     {isFilterMessages ? <MessageComponent listMessage={listMessagePro}/>: <MessageComponent listMessage={listMessage}/>}   
+
+      <div className="w-11/12 h-auto absolute bottom-4 border-2 border-gray-500 rounded-2xl p-4">
+        <div className="space-x-2 space-y-2 text-sm">
+          <label htmlFor="messageType" className="font-bold">
+            Destinataire :
+          </label>
+          <select
+            id="messageType"
+            className="rounded-2xl bg-blue-100 px-2 bottom-4 border-gray-500"
+          >
+            <option value="toutLeMonde">Tout le monde</option>
+            <option value="pro">Entre pro</option>
+          </select>
+          <textarea
+            className="w-96 p-4 rounded-2xl h-32 resize-none"
+            placeholder="Écrire un message..."
+            value={inputValue}
+            onChange={(event) => setInputValue(event.target.value)}
+          ></textarea>
+          <button
+            type="button"
+            className="bg-blue-950 text-2xl text-white px-3 py-2 rounded-full hover:bg-blue-900 absolute bottom-8 right-10 inline-flex items-center justify-center"
+            onClick={(event) => sendMessage(event)}
+          >
+            <i className="bi bi-send"></i>
+          </button>
         </div>
       </div>
     </div>

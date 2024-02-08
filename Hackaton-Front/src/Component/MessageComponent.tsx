@@ -1,39 +1,39 @@
-import { useEffect } from "react";
 import { Message } from "../Interface/Message";
 
 interface MessageProps {
-    listMessage: Message[];
+  listMessage: Message[];
 }
 
 export const MessageComponent = ({ listMessage }: MessageProps) => {
+    return (
+    <div className="h-4/6 overflow-auto space-y-2 mt-2 rounded-2xl p-2">
+      {listMessage.map((mess) => (
+        <div key={mess.id} className="max-w-80 bg-green-200 rounded-l-lg p-2 relative -right-24 space-y-2">
+          <p>{mess.message_content}</p>
+          <div className="font-bold flex space-x-2">
+            <p>{mess.message_date}</p>
+            {/* <p className="bg-blue-950 text-white text-xs w-16 rounded-2xl p-0.5 text-center">
+              Entre pro
+            </p> */}
+          </div>
+        </div>
+      ))}
 
-    useEffect(() => {
-        console.log(listMessage)
-    })
-
-    if(listMessage){
-        return (
-            <div className="flex flex-col p-4 overflow-auto">
-                {listMessage.map((mess) => (
-                    <div
-                        key={mess.id}
-                        className="bg-blue-100 border border-blue-300 p-3 rounded-lg shadow max-w-md mb-2"
-                        style={{ alignSelf: 'flex-start' }}
-                    >
-                        <p className="text-blue-800 text-sm">
-                            {mess.sender_name}
-                        </p>
-                        <p className="text-gray-800">{mess.message_content}</p>
-                        <p className="text-gray-500 text-xs">
-                            {mess.message_date}
-                        </p>
-                    </div>
-                ))}
-            </div>
-        );
-    }
-    else{
-        <div> Aucun message disponible </div>
-    }
-    
+      {/* <div className="max-w-80 bg-gray-300 rounded-r-lg p-2 relative space-y-2">
+        <p>Bonjour, ISQGFLLJH QSDKJFGQSF QSDKHDGFSQF KSQGFKDSQHF</p>
+        <div className="font-bold flex space-x-2">
+          <p>09:00:00</p>
+          <p className="bg-blue-950 text-white text-xs w-16 rounded-2xl p-0.5 text-center">
+            Entre pro
+          </p>
+        </div>
+      </div> */}
+    </div>
+  );
 };
+
+// {mess.id}
+
+// {mess.sender_name}
+// {mess.message_content}
+// {mess.message_date}

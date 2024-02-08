@@ -24,11 +24,6 @@ const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMes
   const [isFilterMessages, setIsFilterMessages] = useState(false);
   let newListMessage = listMessage
 
-//   const closeChatbox = () => {
-//     setIsChatboxOpen(false);
-//   };
-
-
   function sendMessage(e: any){
       console.log(listMessage)
       let newMessage = {id: null, message_content: inputValue, message_date: null,  sender_name: pro.firstname + pro.lastname}

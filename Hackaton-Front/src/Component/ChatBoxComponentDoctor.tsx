@@ -25,8 +25,8 @@ const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMes
   let newListMessage = listMessage
 
   function sendMessage(e: any){
-      console.log(listMessage)
-      let newMessage = {id: null, message_content: inputValue, message_date: null,  sender_name: pro.firstname + pro.lastname}
+      // console.log("je suis la " + pro.firstname)
+      let newMessage = {id: null, message_content: inputValue, message_date: null,  sender_name: pro.firstname +" "+ pro.lastname}
       setMessage(newMessage)
       
       console.log(newMessage)

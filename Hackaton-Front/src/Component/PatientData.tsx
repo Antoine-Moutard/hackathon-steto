@@ -31,14 +31,14 @@ const PatientData = ({
   };
 
   useEffect(() => {
-    console.log("je me lance");
+    // console.log("je me lance");
     getListMessage();
     getListMessagePro();
-  }, listMessage);
+  },[listMessage]);
 
   const getListMessage = async () => {
     try {
-      console.log("Je rentre dans la récupération 2");
+      // console.log("Je rentre dans la récupération 2");
       const response = await fetch(
         "http://localhost:3000/api/getAllMessageByPractitionerId/'" +
           pro.id +
@@ -61,7 +61,7 @@ const PatientData = ({
 
   const getListMessagePro = async () => {
     try {
-      console.log("Je rentre dans la récupération 2");
+      // console.log("Je rentre dans la récupération 2");
       const response = await fetch(
         "http://localhost:3000/api/getProMessageByPractitionerId/'" +
           pro.id +

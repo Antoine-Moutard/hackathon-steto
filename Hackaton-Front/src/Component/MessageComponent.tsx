@@ -13,7 +13,10 @@ export const MessageComponent = (
   { listMessage, currentUser }: MessageProps,
   
 ) => {
+
+  console.log( listMessage)
   function printMessage(message: Message) {
+    // console.log(currentUser.firstname + " " + currentUser.lastname + " " + message.sender_name)
     if (
       currentUser.firstname + currentUser.lastname == message.sender_name ||
       currentUser.firstname + " " + currentUser.lastname == message.sender_name

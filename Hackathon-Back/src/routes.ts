@@ -183,7 +183,7 @@ router.get("/api/getAllMessageByPractitionerId/:id/:idPat", async (req, res) => 
 
     // Executes the query
     const [messages] = await connection.query(
-      "SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " AND c.subjectId = "+ [req.params.idPat] +" ORDER BY m.createdAt ASC ");
+      "SELECT m.content AS message_content, m.createdAt AS message_date, COALESCE(CONCAT(pr.firstname, ' ', pr.lastname), CONCAT(p.firstname, ' ', p.lastname)) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " AND c.subjectId = "+ [req.params.idPat] +" ORDER BY m.createdAt ASC ");
       // Closes the connection
     await connection.end();
 

@@ -50,7 +50,7 @@ const PatientDashboard = ({ patient,listMessage, setListMessage }: PatientProps)
     <div className="flex flex-col h-screen">
       <div className="flex flex-grow">
         <NavBarLaterale />
-        <div className="flex-1 flex flex-col space-y-6">
+        <div className="flex-1 flex flex-col space-y-6 bg-white drop-shadow-[0_-4px_3px_rgba(0,0,0,0.25)]">
           <div className="ml-10 mt-10">
             <h1 className="text-2xl text-blue-950 font-bold">
               {patient.firstname} {patient.lastname}

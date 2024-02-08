@@ -63,7 +63,7 @@ const ChatBoxComponentPatient = ({
   };
 
   return (
-    <div className="bg-slate-100 p-6 rounded-tl-3xl shadow-md fixed top-0 right-0 h-full w-1/4">
+    <div className="bg-slate-100 p-6 rounded-tl-3xl shadow-md fixed top-0 right-0 h-full w-1/4 drop-shadow-[0_-4px_3px_rgba(0,0,0,0.25)]">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold">Messagerie</h2>
         <button

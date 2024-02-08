@@ -21,7 +21,7 @@ export const DoctorDashboard = ({ listPatients, listMessage,setListMessage, pro,
       <div className="flex flex-col h-screen">
         <div className="flex flex-grow">
           <NavBarLaterale />
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto bg-white drop-shadow-[0_-4px_3px_rgba(0,0,0,0.25)]">
             {!selectedPatient ? (
                 <div className="ml-10 mt-10">
                 <h1 className="text-2xl text-blue-950 font-bold">

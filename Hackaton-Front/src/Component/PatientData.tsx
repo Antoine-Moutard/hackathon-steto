@@ -20,12 +20,12 @@ const PatientData = ({ patient, onBack,listMessage, setListMessage, pro, setPro 
 
   const toggleChatbox = () => {
     setIsChatboxVisible(!isChatboxVisible);
-    getListMessage
+    getListMessage()
   };
 
   const getListMessage = async () => {  
     try {
-      console.log("Je rentre dans la récupération")
+      console.log("Je rentre dans la récupération 2")
         const response = await fetch("http://localhost:3000/api/getAllMessageByPractitionerId/'" + pro.id +"'", {
             method: 'GET',
             headers: {
@@ -35,6 +35,7 @@ const PatientData = ({ patient, onBack,listMessage, setListMessage, pro, setPro 
             // body: JSON.stringify({ careTeamId: patient.id}),
         });
         const data: Message[] = await response.json();
+        console.log("deux a la suite ")
         console.log(data)
         setListMessage(data);
         // ...gestion de la réponse

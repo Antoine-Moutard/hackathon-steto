@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Message } from "../Interface/Message";
 
 interface MessageProps {
@@ -5,6 +6,11 @@ interface MessageProps {
 }
 
 export const MessageComponent = ({ listMessage }: MessageProps) => {
+
+    useEffect(() => {
+        console.log(listMessage)
+    })
+
     return (
         <div className="flex flex-col p-4 overflow-auto">
             {listMessage.map((mess) => (

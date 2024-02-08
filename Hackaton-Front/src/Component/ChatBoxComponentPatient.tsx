@@ -47,7 +47,7 @@ const ChatBoxComponentPatient = ({patient, toggleChatBox, listMessage, setListMe
               headers: {
                   'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ senderId: patient.id, careTeamId: patient.careTeamId, messageContent: content }),
+              body: JSON.stringify({ senderId: patient.id, careTeamId: patient.careteamId, messageContent: content }),
           });
   
           // ...gestion de la réponse

@@ -25,7 +25,7 @@ router.get("/api/getPatients", async (req, res) => {
 
     // Executes the query
     const [users] = await connection.query(
-      "SELECT patient.id, patient.firstname, patient.lastname, patient.email, careteam.id as careTeamId FROM patient JOIN careteam ON patient.id = careteam.subjectId"
+      "SELECT patient.id, patient.firstname, patient.lastname, patient.email, careteam.id as careteamId FROM patient JOIN careteam ON patient.id = careteam.subjectId"
     );
 
     // Closes the connection

@@ -1,7 +1,7 @@
 import BloodGlucoseMonitoring from "../Component/BloodMonitoringComponent";
 import InsulinMonitoring from "../Component/InsulinMonitoringComponent";
 import "tailwindcss/tailwind.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Patient } from "../Interface/Patient";
 import { Message } from "../Interface/Message";
 import NavBarLaterale from "../Component/NavBarLaterale";
@@ -19,17 +19,18 @@ type PatientProps = {
 const PatientDashboard = ({ patient,listMessage, setListMessage }: PatientProps) => {
 
   const [isChatboxVisible, setIsChatboxVisible] = useState(false);
-  // const [listMessage, setListMessage] = useState<Message[]>([])
 
   const toggleChatbox = () => {
     setIsChatboxVisible(!isChatboxVisible);
     getListMessage()
-    // console.log(listMessage)
   };
+
+  useEffect(() => {
+    getListMessage();
+  })
 
   const getListMessage = async () => {  
       try {
-        console.log("Je rentre dans la récupération")
           const response = await fetch("http://localhost:3000/api/getMessageByPatientId/'" + patient.id +"'", {
               method: 'GET',
               headers: {
@@ -39,7 +40,6 @@ const PatientDashboard = ({ patient,listMessage, setListMessage }: PatientProps)
               // body: JSON.stringify({ careTeamId: patient.id}),
           });
           const data: Message[] = await response.json();
-          console.log(data)
           setListMessage(data);
           // ...gestion de la réponse
       } catch (error) {

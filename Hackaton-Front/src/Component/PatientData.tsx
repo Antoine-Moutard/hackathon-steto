@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BloodGlucoseMonitoring from "../Component/BloodMonitoringComponent";
 import InsulinMonitoring from "../Component/InsulinMonitoringComponent";
 import { Patient } from "../Interface/Patient";
@@ -28,9 +28,13 @@ const PatientData = ({
 
   const toggleChatbox = () => {
     setIsChatboxVisible(!isChatboxVisible);
+  };
+
+  useEffect(() => {
+    console.log("je me lance")
     getListMessage();
     getListMessagePro();
-  };
+  }, listMessage)
 
   const getListMessage = async () => {
     try {
@@ -84,6 +88,8 @@ const PatientData = ({
       console.error("Erreur lors de l'envoi du message:", error);
     }
   }
+
+
 
   return (
     <div className="ml-5 mt-5 space-y-2">

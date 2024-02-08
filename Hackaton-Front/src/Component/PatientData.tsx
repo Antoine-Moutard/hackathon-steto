@@ -2,7 +2,6 @@ import { useState } from "react";
 import BloodGlucoseMonitoring from "../Component/BloodMonitoringComponent";
 import InsulinMonitoring from "../Component/InsulinMonitoringComponent";
 import { Patient } from "../Interface/Patient";
-import ChatBoxComponent from "./ChatBoxComponentPatient";
 import { Message } from "../Interface/Message";
 import ChatBoxComponentDoctor from "./ChatBoxComponentDoctor";
 import { Pro } from "../Interface/Pro";
@@ -27,7 +26,7 @@ const PatientData = ({ patient, onBack,listMessage, setListMessage, pro, setPro 
   const getListMessage = async () => {  
     try {
       console.log("Je rentre dans la récupération")
-        const response = await fetch("http://localhost:3000/api/getMessageByPatientId/'" + patient.id +"'", {
+        const response = await fetch("http://localhost:3000/api/getAllMessageByPractitionerId/'" + pro.id +"'", {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

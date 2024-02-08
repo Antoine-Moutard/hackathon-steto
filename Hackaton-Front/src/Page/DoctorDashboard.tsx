@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import "tailwindcss/tailwind.css";
 import { Patient } from "../Interface/Patient";
 import NavBarLaterale from '../Component/NavBarLaterale';
@@ -12,9 +12,10 @@ type DoctorDashboardProps = {
   setListMessage:React.Dispatch<React.SetStateAction<Message[]>>
   pro: Pro,
   setPro:React.Dispatch<React.SetStateAction<Pro>>
+  setListPatient:React.Dispatch<React.SetStateAction<Patient[]>>
 };
 
-export const DoctorDashboard = ({ listPatients, listMessage,setListMessage, pro, setPro }: DoctorDashboardProps) => {
+export const DoctorDashboard = ({ listPatients, listMessage,setListMessage, pro, setPro, setListPatient }: DoctorDashboardProps) => {
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   
   return (

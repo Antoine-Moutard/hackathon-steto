@@ -14,24 +14,18 @@ type LoginPageProps = {
   setPro: React.Dispatch<React.SetStateAction<Pro>>;
 };
 
-export const LoginPage = ({
-  setEtat,
-  onUserSelect,
-  setListPatients,
-  listPatients,
-  setPatient,
-  setNurse,
-  setPro,
-}: LoginPageProps) => {
+export const LoginPage = ({setEtat, onUserSelect,  setListPatients, listPatients, setPatient, setNurse, setPro}: LoginPageProps) => {
   // État pour stocker les données des patients
   const [listPros, setListPro] = useState<Pro[]>([]);
   const [listNurses, setListNurse] = useState<Nurse[]>([]);
+  let listPatientByPro = listPatients
 
   const handleNurseClick = (nurse: Nurse) => {
     onUserSelect(nurse.id);
     setNurse(nurse);
     let newEtat = "careteam";
     setEtat(newEtat);
+    getListPatientByPro(nurse)
   };
 
   const handlePatientClick = (newPatient: Patient) => {
@@ -46,7 +40,30 @@ export const LoginPage = ({
     setPro(newPro);
     let newEtat = "careteam";
     setEtat(newEtat);
+    getListPatientByPro(newPro)
   };
+
+  const getListPatientByPro = async (practitionner: Pro) => { 
+    try {
+      console.log("Je rentre dans la récupération")
+        const response = await fetch("http://localhost:3000/api/getPatientByProId/'" + practitionner.id +"'", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            
+            // body: JSON.stringify({ careTeamId: patient.id}),
+        });
+        const data: Patient[] = await response.json();
+        console.log(data)
+        setListPatients(data)
+        listPatientByPro=data
+       
+        // ...gestion de la réponse
+    } catch (error) {
+        console.error("Erreur lors de l'envoi du message:", error);
+    }
+  }
 
   useEffect(() => {
     // Fonction pour charger les données des patients

@@ -42,7 +42,7 @@ const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMes
 
   const saveMessage = async (e: any, content: string) => {  
     // console.log("je rentre ")
-    // console.log(patient)  
+    console.log(patient)  
     e.preventDefault();
       try {
           const response = await fetch('http://localhost:3000/api/sendMessage', {
@@ -50,7 +50,7 @@ const ChatBoxComponentDoctor = ({patient, toggleChatBox, listMessage, setListMes
               headers: {
                   'Content-Type': 'application/json',
               },
-              body: JSON.stringify({ senderId: pro.id, careTeamId: patient.careTeamId, messageContent: content }),
+              body: JSON.stringify({ senderId: pro.id, careTeamId: patient.careteamId, messageContent: content }),
           });
   
           // ...gestion de la réponse

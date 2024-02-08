@@ -272,31 +272,31 @@ router.post("/api/getNotProMessageByCareTeamId", async (req, res) => {
  * @param req - The request object.
  * @param res - The response object.
  */
-router.post("/api/getPatientByProId", async (req, res) => {
+router.get("/api/getPatientByProId/:id", async (req, res) => {
   try {
     // Retrieves the message data from the request body
-    const { proId } = req.body;
 
-    if (!proId) {
+    const connection = await db();
+
+    if (!req.params.id) {
       return res
         .status(400)
         .json({ message: "Missing data to send the message" });
     }
 
     // Establishes a connection
-    const connection = await db();
+    
 
     // Prepares and executes the query
-    const sql =
-      "SELECT Patient.* FROM Practitioner JOIN CareTeamParticipant ON Practitioner.id = CareTeamParticipant.memberId JOIN CareTeam ON CareTeamParticipant.careTeamId = CareTeam.id JOIN Patient ON CareTeam.subjectId = Patient.id WHERE Practitioner.id = ?";
-
-    await connection.query(sql, [proId]);
+    const [messages] = await connection.query(
+      "SELECT patient.id, patient.firstname, patient.lastname, patient.email, careteam.id as careteamId FROM Practitioner JOIN CareTeamParticipant ON Practitioner.id = CareTeamParticipant.memberId JOIN CareTeam ON CareTeamParticipant.careTeamId = CareTeam.id JOIN Patient ON CareTeam.subjectId = Patient.id WHERE Practitioner.id = " + req.params.id);  
+    // await connection.query(sql, [proId]);
 
     // Closes the connection
     await connection.end();
 
     // Sends the response
-    res.status(200).json({ message: "Patients retrieved successfully" });
+    res.status(200).json(messages);
   } catch (error) {
     console.error("Error retrieving patients:", error);
     res

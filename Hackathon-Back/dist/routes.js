@@ -57,7 +57,7 @@ router.get("/api/getDoctors", (req, res) => __awaiter(void 0, void 0, void 0, fu
         // Establishes a connection
         const connection = yield (0, database_1.default)();
         // Executes the query
-        const [users] = yield connection.query("SELECT * FROM `practitioner` join careteamparticipant on practitioner.id = careteamparticipant.memberId where role = 'doctor'");
+        const [users] = yield connection.query("SELECT practitioner.id, practitioner.firstname, practitioner.lastname FROM `practitioner` join careteamparticipant on practitioner.id = careteamparticipant.memberId where role = 'doctor'");
         // Closes the connection
         yield connection.end();
         // Sends the response
@@ -80,7 +80,7 @@ router.get("/api/getNurses", (req, res) => __awaiter(void 0, void 0, void 0, fun
         // Establishes a connection
         const connection = yield (0, database_1.default)();
         // Executes the query
-        const [users] = yield connection.query("SELECT * FROM `practitioner` join careteamparticipant on practitioner.id = careteamparticipant.memberId where role = 'nurse'");
+        const [users] = yield connection.query("SELECT practitioner.id, practitioner.firstname, practitioner.lastname FROM `practitioner` join careteamparticipant on practitioner.id = careteamparticipant.memberId where role = 'nurse'");
         // Closes the connection
         yield connection.end();
         // Sends the response
@@ -233,24 +233,23 @@ router.post("/api/getNotProMessageByCareTeamId", (req, res) => __awaiter(void 0,
  * @param req - The request object.
  * @param res - The response object.
  */
-router.post("/api/getPatientByProId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/api/getPatientByProId/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         // Retrieves the message data from the request body
-        const { proId } = req.body;
-        if (!proId) {
+        const connection = yield (0, database_1.default)();
+        if (!req.params.id) {
             return res
                 .status(400)
                 .json({ message: "Missing data to send the message" });
         }
         // Establishes a connection
-        const connection = yield (0, database_1.default)();
         // Prepares and executes the query
-        const sql = "SELECT Patient.* FROM Practitioner JOIN CareTeamParticipant ON Practitioner.id = CareTeamParticipant.memberId JOIN CareTeam ON CareTeamParticipant.careTeamId = CareTeam.id JOIN Patient ON CareTeam.subjectId = Patient.id WHERE Practitioner.id = ?";
-        yield connection.query(sql, [proId]);
+        const [messages] = yield connection.query("SELECT patient.id, patient.firstname, patient.lastname, patient.email, careteam.id as careteamId FROM Practitioner JOIN CareTeamParticipant ON Practitioner.id = CareTeamParticipant.memberId JOIN CareTeam ON CareTeamParticipant.careTeamId = CareTeam.id JOIN Patient ON CareTeam.subjectId = Patient.id WHERE Practitioner.id = " + req.params.id);
+        // await connection.query(sql, [proId]);
         // Closes the connection
         yield connection.end();
         // Sends the response
-        res.status(200).json({ message: "Patients retrieved successfully" });
+        res.status(200).json(messages);
     }
     catch (error) {
         console.error("Error retrieving patients:", error);

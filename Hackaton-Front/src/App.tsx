@@ -11,7 +11,7 @@ function App() {
   const [etat, setEtat] = useState<string>("login");
   const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
   const [listPatients, setListPatients] = useState<Patient[]>([]);
-  const [patient, setPatient] = useState<Patient>({id: 0, email:"" , firstname: "", lastname:"", careTeamId:""});
+  const [patient, setPatient] = useState<Patient>({id: 0, email:"" , firstname: "", lastname:"", careteamId:""});
   const [nurse, setNurse] = useState<Nurse>({id: 0, email:"" , firstname: "", lastname:"", role:""});
   const [pro, setPro] = useState<Pro>({id: 0, email:"" , firstname: "", lastname:"", role:""});
   const [listMessage, setListMessage] = useState<Message[]>([])
@@ -50,7 +50,7 @@ function App() {
   } else if (etat === "careteam") {
     return (
       <div className="page-container">
-        <DoctorDashboard listPatients={listPatients} listMessage={listMessage} setListMessage={setListMessage} pro={pro} setPro={setPro}/>
+        <DoctorDashboard listPatients={listPatients} listMessage={listMessage} setListMessage={setListMessage} pro={pro} setPro={setPro} setListPatient={setListPatients}/>
       </div>
     );
   }

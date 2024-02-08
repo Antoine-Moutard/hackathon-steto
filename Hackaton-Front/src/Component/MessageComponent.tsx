@@ -14,13 +14,10 @@ export const MessageComponent = (
   
 ) => {
   function printMessage(message: Message) {
-  console.log(currentUser.firstname + ' ' + currentUser.lastname + " " +message.sender_name)
-
     if (
       currentUser.firstname + currentUser.lastname == message.sender_name ||
       currentUser.firstname + " " + currentUser.lastname == message.sender_name
     ) {
-      console.log(message.sender_name);
       return (
         <div
           key={message.id}

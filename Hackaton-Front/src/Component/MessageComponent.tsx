@@ -1,21 +1,29 @@
 import { Message } from "../Interface/Message";
 import { Patient } from "../Interface/Patient";
+import { Pro } from "../Interface/Pro";
 
 interface MessageProps {
   listMessage: Message[];
   patient: Patient;
 }
 
-export const MessageComponent = ({ listMessage, patient }: MessageProps) => {
+export const MessageComponent = (
+  { listMessage }: MessageProps,
+  currentUser: Patient | Pro
+) => {
   function printMessage(message: Message) {
-    if (patient.firstname + " " + patient.lastname == message.sender_name) {
+    if (
+      currentUser.firstname + currentUser.lastname == message.sender_name ||
+      currentUser.firstname + " " + currentUser.lastname == message.sender_name
+    ) {
+      console.log(message.sender_name);
       return (
         <div
           key={message.id}
-          className="max-w-80 bg-gray-300 rounded-r-lg p-2 relative space-y-2"
+          className="max-w-80 bg-green-200 rounded-l-2xl px-4 py-1 relative -right-24 space-y-2"
         >
-          <p>{message.message_content}</p>
-          <div className="font-bold flex space-x-2">
+          <p className="font-bold">{message.message_content}</p>
+          <div className=" flex space-x-2">
             <p>{message.message_date}</p>
           </div>
         </div>
@@ -24,10 +32,11 @@ export const MessageComponent = ({ listMessage, patient }: MessageProps) => {
       return (
         <div
           key={message.id}
-          className="max-w-80 bg-green-200 rounded-l-lg p-2 relative -right-24 space-y-2"
+          className="max-w-80 bg-gray-300 rounded-r-2xl px-4 py-1 relative space-y-2"
         >
-          <p>{message.message_content}</p>
-          <div className="font-bold flex space-x-2">
+          <h1 className="font-bold text-blue-950">{message.sender_name}</h1>
+          <p className="font-bold">{message.message_content}</p>
+          <div className="flex space-x-2">
             <p>{message.message_date}</p>
           </div>
         </div>

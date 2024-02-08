@@ -102,6 +102,7 @@ router.get("/api/getNurses", async (req, res) => {
  * @param req - The request object.
  * @param res - The response object.
  */
+
 router.post("/api/sendMessage", async (req, res) => {
   try {
     // Retrieves the message data from the request body
@@ -118,7 +119,39 @@ router.post("/api/sendMessage", async (req, res) => {
 
     // Prepares and executes the query
     const sql =
-      "INSERT INTO message (senderId, careTeamId, content, createdAt) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
+    "INSERT INTO message (senderId, careTeamId, content, createdAt) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
+
+    await connection.query(sql, [senderId, careTeamId, messageContent]);
+
+    // Closes the connection
+    await connection.end();
+
+    // Sends the response
+    res.status(200).json({ message: "Message sent successfully" });
+  } catch (error) {
+    console.error("Error sending message:", error);
+    res.status(500).json({ message: "Error sending message" });
+  }
+});
+
+
+router.post("/api/sendMessage/:type", async (req, res) => {
+  try {
+    // Retrieves the message data from the request body
+    const { senderId, messageContent, careTeamId } = req.body;
+
+    if (!senderId || !messageContent || !careTeamId || !req.params.type) {
+      return res
+        .status(400)
+        .json({ message: "Missing data to send the message" });
+    }
+
+    // Establishes a connection
+    const connection = await db();
+
+    // Prepares and executes the query
+    const sql =
+    "INSERT INTO message (senderId, careTeamId, content, createdAt, messageType) VALUES (?, ?, ?, CURRENT_TIMESTAMP, '"+ [req.params.type] +"')";
 
     await connection.query(sql, [senderId, careTeamId, messageContent]);
 
@@ -213,7 +246,7 @@ router.get("/api/getProMessageByPractitionerId/:id/:idPat", async (req, res) => 
 
     // Executes the query
     const [messages] = await connection.query(
-      "SELECT m.content AS message_content, m.createdAt AS message_date, CONCAT(p.firstname, ' ', p.lastname) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " AND m.messageType = 'Pro' AND c.subjectId = "+ [req.params.idPat] +" ORDER BY m.createdAt ASC ");
+      "SELECT m.content AS message_content, m.createdAt AS message_date, COALESCE(CONCAT(pr.firstname, ' ', pr.lastname), CONCAT(p.firstname, ' ', p.lastname)) AS sender_name, m.id FROM message m JOIN careteam c ON m.careTeamId = c.id JOIN careteamparticipant cp ON c.id = cp.careTeamId LEFT JOIN patient p ON m.senderId = p.id LEFT JOIN practitioner pr ON m.senderId = pr.id WHERE cp.memberId = " + [req.params.id] + " AND c.subjectId = "+ [req.params.idPat] +" AND m.messageType = 'Pro' ORDER BY m.createdAt ASC ");
   
       // Closes the connection
     await connection.end();

@@ -1,4 +1,3 @@
-// BloodMonitoring.tsx
 const BloodMonitoring = () => {
   return (
     <section className="bg-white p-6 rounded-lg shadow-md">

@@ -5,6 +5,7 @@ import { Patient } from "./Interface/Patient.tsx";
 import { Nurse } from "./Interface/Nurse.tsx";
 import { Pro } from "./Interface/Pro.tsx";
 import { DoctorDashboard } from "./Page/DoctorDashboard.tsx";
+import { Message } from "./Interface/Message.tsx";
 
 function App() {
   const [etat, setEtat] = useState<string>("login");
@@ -13,6 +14,7 @@ function App() {
   const [patient, setPatient] = useState<Patient>({id: 0, email:"" , firstname: "", lastname:"", careTeamId:""});
   const [nurse, setNurse] = useState<Nurse>({id: 0, email:"" , firstname: "", lastname:"", role:""});
   const [pro, setPro] = useState<Pro>({id: 0, email:"" , firstname: "", lastname:"", role:""});
+  const [listMessage, setListMessage] = useState<Message[]>([])
 
 
   const handleUserSelect = (userId: number) => {
@@ -40,13 +42,15 @@ function App() {
           listPatients={listPatients}
           setListPatients={setListPatients}
           patient={patient}
+          listMessage={listMessage}
+          setListMessage={setListMessage}
         />
       </div>
     );
   } else if (etat === "careteam") {
     return (
       <div className="page-container">
-        <DoctorDashboard />
+        <DoctorDashboard listPatients={listPatients} listMessage={listMessage} setListMessage={setListMessage}/>
       </div>
     );
   }

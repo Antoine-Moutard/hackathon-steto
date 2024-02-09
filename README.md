@@ -100,7 +100,7 @@ npm run dev  # Pour démarrer le serveur de développement du front-end
 Suivez ces instructions pour configurer et démarrer votre application Stēto sur n'importe quel système d'exploitation.
 
 
-**Ports :** L'application fonctionne sur les ports `5173` (back-end) et `3000` (front-end).
+**Ports :** L'application fonctionne sur les ports `5173` (front-end) et `3000` (back-end).
 
 ## 👨‍💻 Équipe de Développement
 

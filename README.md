@@ -54,7 +54,7 @@ start.cmd    # Pour lancer le serveur
 Dans la même invite de commande, naviguez vers le dossier du front-end et exécutez :
 
 ```cmd
-cd front-end && start.cmd  # Pour démarrer l'interface utilisateur
+cd Hackaton-Front && start.cmd  # Pour démarrer l'interface utilisateur
 ```
 
 ### Normal Installation (All OS)

@@ -9,7 +9,7 @@ Pour lancer le front-end utilisez le start.cmd
 Les ports utilisés par défaut sont 5173 et 3000 !
 
 Développé par :
-  Nathan JANVIER
-  Brahim TAHIRI
-  Antoine MOUTARD
-  Sami OUSALEM
+  Nathan 
+  Brahim 
+  Antoine
+  Sami 

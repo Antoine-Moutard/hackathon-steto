@@ -29,34 +29,6 @@ Pour mener à bien ce projet, notre équipe a utilisé une combinaison de techno
 - <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" width="30" height="30"> TailwindCSS
 - <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" width="30" height="30"> React avec Vite.js
 
-
-
-
-## ⚙️ Installation et Démarrage
-
-Nous proposons deux méthodes d'installation : une installation rapide pour les utilisateurs de Windows et une installation normale compatible avec tous les systèmes d'exploitation.
-
-### Fast Installation (for Windows)
-
-Cette méthode est optimisée pour une mise en place rapide sous Windows.
-
-**Back-end :**
-
-Ouvrez l'invite de commande et exécutez :
-
-```cmd
-install.cmd  # Pour installer les dépendances
-start.cmd    # Pour lancer le serveur
-```
-
-**Front-end :**
-
-Dans la même invite de commande, naviguez vers le dossier du front-end et exécutez :
-
-```cmd
-cd Hackaton-Front && start.cmd  # Pour démarrer l'interface utilisateur
-```
-
 ### Normal Installation (All OS)
 
 Cette méthode est universelle et adaptée à tous les systèmes d'exploitation. Avant de commencer, assurez-vous que Node.js est installé sur votre machine. Si ce n'est pas le cas, téléchargez et installez la dernière version stable depuis [le site officiel de Node.js](https://nodejs.org/).
